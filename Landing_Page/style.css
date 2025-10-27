@@ -1,0 +1,214 @@
+       
+:root {
+    --bg-main: #F5F0E1;          
+    --bg-highlight: #D4AA3F;      
+    --bg-accent: #90A18D;         
+    --text-primary: #4A2C1C;      
+    --text-grey: #A0A0A0;         
+    --card-white: #FFFFFF;        
+    
+    --btn-accent: var(--bg-accent);
+    --btn-accent-hover: #7E907B;  
+
+    --btn-primary-blue: #606FF3;
+    --btn-primary-blue-hover: #505ED4;
+    --bg-drag-zone: #FCFBF9;
+    --border-drag-zone: #E0DBCD;
+    --btn-cancel-bg: #F5F0E1; 
+    --btn-cancel-border: #D1C9B7;
+}
+
+body {
+    background-color: var(--bg-main);
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-primary);
+}
+
+.navbar {
+    background-color: var(--bg-accent);
+}
+
+.navbar-brand, .nav-link {
+    color: var(--card-white) !important;
+    font-weight: 500;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.hero-section {
+    padding: 4rem 0;
+}
+
+.hero-logo-placeholder {
+    font-size: 12rem;
+    line-height: 1;
+    color: var(--text-primary);
+}
+
+.hero-section h1 {
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.how-to-section {
+    background-color: var(--bg-highlight);
+    padding: 4rem 0;
+}
+
+.how-to-card {
+    background-color: var(--card-white);
+    border-radius: 15px;
+    padding: 1.5rem;
+    text-align: center;
+    height: 100%;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.how-to-card i {
+    font-size: 3rem;
+    color: var(--text-primary);
+}
+
+.arrow-icon {
+    font-size: 3rem;
+    color: var(--text-primary);
+}
+
+.upload-section {
+    padding: 4rem 0;
+}
+
+.upload-section img {
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.upload-section h4 {
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+.btn-upload {
+    background-color: var(--btn-accent);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    border-radius: 10px;
+}
+
+.btn-upload:hover {
+    background-color: var(--btn-accent-hover);
+    color: white;
+}
+
+.footer {
+    background-color: var(--bg-accent);
+    padding: 2.5rem 0;
+    color: var(--card-white);
+}
+
+.footer-logo {
+    color: var(--card-white);
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-decoration: none;
+}
+
+.hero-logo-placeholder {
+    font-size: 12rem;
+    line-height: 1;
+    color: var(--text-primary);
+}
+
+.qoffea-modal-content {
+    background-color: var(--bg-main);
+    border-radius: 20px;
+    border: none;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.qoffea-modal-content .modal-body {
+    padding: 2rem 2.5rem;
+}
+
+.qoffea-modal-content .modal-title {
+    color: var(--text-primary);
+    font-weight: 700;
+    font-size: 1.75rem;
+}
+
+.qoffea-modal-content .modal-body > p {
+    color: var(--text-primary);
+    font-size: 1rem;
+}
+
+.drag-drop-zone {
+    background-color: var(--bg-drag-zone);
+    border: 2px dashed var(--border-drag-zone);
+    border-radius: 15px;
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    width: 100%; 
+}
+
+.drag-drop-zone:hover {
+    background-color: #F8F5EC; /* Sedikit lebih gelap saat hover */
+}
+
+.drag-drop-zone i {
+    font-size: 2.5rem;
+    color: var(--text-primary);
+}
+
+.drag-drop-zone p {
+    margin-bottom: 0.25rem;
+    color: var(--text-primary);
+}
+
+.drag-drop-zone .text-muted {
+    color: var(--text-grey) !important;
+    font-size: 0.9rem;
+}
+
+.qoffea-modal-content .modal-footer {
+    border-top: none;
+    padding: 0 2.5rem 2rem 2.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Tombol jadi sebelahan */
+    gap: 1rem;
+}
+
+.btn-modal-cancel, .btn-modal-primary {
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    text-align: center;
+}
+
+.btn-modal-cancel {
+    background-color: var(--btn-cancel-bg);
+    border-color: var(--btn-cancel-border);
+    color: var(--text-primary);
+}
+.btn-modal-cancel:hover {
+    background-color: var(--border-drag-zone);
+}
+
+.btn-modal-primary {
+    background-color: var(--btn-primary-blue);
+    color: white;
+    cursor: pointer; 
+}
+.btn-modal-primary:hover {
+    background-color: var(--btn-primary-blue-hover);
+    color: white;
+}
