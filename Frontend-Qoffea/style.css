@@ -1,4 +1,3 @@
-       
 :root {
     --bg-main: #F5F0E1;          
     --bg-highlight: #D4AA3F;      
@@ -159,7 +158,7 @@ body {
 }
 
 .drag-drop-zone:hover {
-    background-color: #F8F5EC; /* Sedikit lebih gelap saat hover */
+    background-color: #F8F5EC; 
 }
 
 .drag-drop-zone i {
@@ -181,7 +180,7 @@ body {
     border-top: none;
     padding: 0 2.5rem 2rem 2.5rem;
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Tombol jadi sebelahan */
+    grid-template-columns: 1fr 1fr; 
     gap: 1rem;
 }
 
@@ -211,4 +210,58 @@ body {
 .btn-modal-primary:hover {
     background-color: var(--btn-primary-blue-hover);
     color: white;
+}
+
+
+
+.camera-section {
+    padding: 4rem 0;
+    background-color: var(--bg-main);
+    min-height: calc(100vh - 87px - 130px); 
+}
+
+
+.camera-view-wrapper {
+    position: relative;
+    background-color: #e9e9e9; 
+    border-radius: 20px;
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+    aspect-ratio: 16 / 9; 
+    overflow: hidden; 
+    border: 1px solid var(--border-drag-zone);
+}
+
+.camera-dummy-feed {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: var(--text-grey);
+    font-size: 1.25rem;
+}
+
+.shutter-button {
+    background-color: #E74C3C; 
+    border: 5px solid white;
+    border-radius: 50%; 
+    width: 80px;
+    height: 80px;
+    color: white;
+    font-size: 2.5rem; 
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.shutter-button:hover {
+    background-color: #C0392B; 
+    transform: scale(1.05);
 }
