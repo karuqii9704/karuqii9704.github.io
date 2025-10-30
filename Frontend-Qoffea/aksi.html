@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
 
@@ -15,7 +16,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark container">
             <div class="container-fluid">
                 <a class="navbar-brand site-logo" href="#">
-                    <img src="../Frontend-Qoffea/Assets/Logo Qoffe Baru.png" alt="Qoffea Logo" height="50">
+                    <img src="Assets/Logo Qoffe Baru.png" alt="Qoffea Logo" height="50">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -46,19 +47,19 @@
                 <div class="row g-3 justify-content-center">
                     <div class="col-10 col-md-3">
                         <div class="guide-box">
-                            <img src="../Frontend-Qoffea/Assets/ikon_matahari.png" alt="Ikon Matahari" class="guide-box__icon">
+                            <img src="Assets/ikon_matahari.png" alt="Ikon Matahari" class="guide-box__icon">
                             <p class="guide-box__text">Pastikan biji kopi terlihat jelas di tempat terang</p>
                         </div>
                     </div>
                     <div class="col-10 col-md-3">
                         <div class="guide-box">
-                            <img src="../Frontend-Qoffea/Assets/ikon_biji_kopi.png" alt="Ikon Biji Kopi" class="guide-box__icon">
+                            <img src="Assets/ikon_biji_kopi.png" alt="Ikon Biji Kopi" class="guide-box__icon">
                             <p class="guide-box__text">Sebar biji dalam satu lapisan dan tidak menumpuk</p>
                         </div>
                     </div>
                     <div class="col-10 col-md-3">
                         <div class="guide-box">
-                            <img src="../Frontend-Qoffea/Assets/ikon_kamera.png" alt="Ikon Fokus" class="guide-box__icon">
+                            <img src="Assets/ikon_kamera.png" alt="Ikon Fokus" class="guide-box__icon">
                             <p class="guide-box__text">Pastikan gambar fokus dan tidak buram</p>
                         </div>
                     </div>
@@ -68,13 +69,14 @@
             <section class="upload-section mb-5">
                 <div class="row g-4 justify-content-center align-items-center">
                     <div class="col-10 col-md-4">
-                        <img src="../Frontend-Qoffea/Assets/coffe_beans.jpg" alt="Preview Biji Kopi" class="upload-section__preview-image img-fluid">
+                        <img src="Assets/coffe_beans.jpg" alt="Preview Biji Kopi" class="upload-section__preview-image img-fluid">
                     </div>
                     <div class="col-10 col-md-4 text-center">
                         <h3 class="upload-section__title">Upload Biji Kopimu disini</h3>
+                        <input type="file" id="imageInput" accept="image/jpeg,image/jpg,image/png" style="display: none;">
                         <div class="d-grid gap-3">
-                            <a href="#" class="btn btn-qoffea-secondary">Buka Kamera</a>
-                            <a href="#" class="btn btn-qoffea-primary">Pilih dari galeri</a>
+                            <button id="openCameraBtn" class="btn btn-qoffea-secondary">Buka Kamera</button>
+                            <button id="openGalleryBtn" class="btn btn-qoffea-primary">Pilih dari galeri</button>
                         </div>
                     </div>
                 </div>
@@ -91,14 +93,12 @@
                             
                             <div class="d-flex align-items-center mt-4">
                                 <div class="grade-text me-4">
-                                    <p class="grade-text__item grade-text--a">A <span>65%</span></p>
-                                    <p class="grade-text__item grade-text--b">B <span>20%</span></p>
-                                    <p class="grade-text__item grade-text--c">C <span>15%</span></p>
+                                    <p class="grade-text__item grade-text--good">Baik <span>0%</span></p>
+                                    <p class="grade-text__item grade-text--defect">Cacat <span>0%</span></p>
                                 </div>
                                 <div class="stacked-bar-container">
-                                    <div class="stacked-bar-segment segment-a" style="height: 65%;" title="Grade A: 65%"></div>
-                                    <div class="stacked-bar-segment segment-b" style="height: 20%;" title="Grade B: 20%"></div>
-                                    <div class="stacked-bar-segment segment-c" style="height: 15%;" title="Grade C: 15%"></div>
+                                    <div class="stacked-bar-segment segment-good" style="height: 0%;" title="Good: 0%"></div>
+                                    <div class="stacked-bar-segment segment-defect" style="height: 0%;" title="Defect: 0%"></div>
                                 </div>
                             </div>
                         </div>
@@ -112,8 +112,8 @@
                     </div>
 
                     <h5 class="results-section__desc-title mt-4">Deskripsi :</h5>
-                    <p class="results-section__desc-text mb-0">AI kami mendeteksi biji kopi Anda memiliki keseragaman warna dan ukuran sangat baik. Tingkat defect (cacat) diperkirakan di bawah 1%.</p>
-                    <a href="#" class="results-section__link d-block text-end mt-2">Apa arti grade ini?</a>
+                    <p class="results-section__desc-text mb-0">Menunggu hasil analisis...</p>
+                    <button id="downloadPdfBtn" class="btn btn-qoffea-primary mt-3">Download Laporan PDF</button>
                 </div>
             </section>
 
@@ -139,7 +139,7 @@
             </section>
 
             <section class="text-center mb-4">
-                <a href="#" class="btn btn-qoffea-primary btn-analyze-again">Analisis lagi</a>
+                <button id="analyzeAgainBtn" class="btn btn-qoffea-primary btn-analyze-again">Analisis lagi</button>
             </section>
 
         </div>
@@ -156,5 +156,6 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>
