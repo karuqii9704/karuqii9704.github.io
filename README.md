@@ -290,6 +290,39 @@ Untuk menghentikan backend server:
 - Debug mode ON: error messages akan ditampilkan di browser
 - Uploaded images & PDF reports tersimpan temporary di folder `uploads/` dan `reports/`
 
+## 🗂️ File Management & Git
+
+### Temporary Files (Tidak di-commit ke Git)
+
+Folder berikut berisi file temporary yang **TIDAK** akan ter-commit ke repository:
+
+- **`Backend-Qoffea/uploads/`** - Uploaded images dari user
+- **`Backend-Qoffea/reports/`** - Generated PDF reports
+
+**Cara kerjanya:**
+
+- File `.gitkeep` di dalam folder memastikan struktur folder tetap ada
+- `.gitignore` mengabaikan semua file di folder tersebut kecuali `.gitkeep`
+- Saat clone/pull, folder kosong akan ter-create otomatis
+- File upload & report di-generate on-the-fly saat aplikasi berjalan
+
+**Untuk Production/Deployment:**
+
+```bash
+# Bersihkan file temporary sebelum deploy
+rm Backend-Qoffea/uploads/*.jpg Backend-Qoffea/uploads/*.jpeg Backend-Qoffea/uploads/*.png
+rm Backend-Qoffea/reports/*.pdf
+
+# Atau gunakan API cleanup endpoint
+curl -X POST http://127.0.0.1:5000/api/cleanup
+```
+
+**Rekomendasi Production:**
+
+- Setup auto-cleanup scheduler (cron job) untuk hapus file lama
+- Atau gunakan cloud storage (AWS S3, Google Cloud Storage)
+- Atau implement database untuk tracking files
+
 ## 🤝 Support
 
 Jika mengalami kendala:

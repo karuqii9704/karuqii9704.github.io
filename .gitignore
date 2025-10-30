@@ -111,6 +111,10 @@ temp/
 Backend-Qoffea/uploads/*
 !Backend-Qoffea/uploads/.gitkeep
 
+# Reports folder (generated PDFs)
+Backend-Qoffea/reports/*
+!Backend-Qoffea/reports/.gitkeep
+
 # Node modules (jika ada)
 node_modules/
 package-lock.json
