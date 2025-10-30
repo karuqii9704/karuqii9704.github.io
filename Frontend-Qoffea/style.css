@@ -139,7 +139,6 @@ body {
     margin-bottom: 20px;
 }
 
-/* Tombol Kustom Qoffea */
 .btn-qoffea-primary {
     background-color: var(--qoffea-green);
     color: #FFFFFF;
@@ -162,12 +161,10 @@ body {
     border-radius: 10px;
 }
 .btn-qoffea-secondary:hover {
-    background-color: #b0b0b0;
-    color: var(--qoffea-dark-brown);
+    background-color: #7a836f;
+    color: white;
 }
 
-
-/* === Bagian Hasil Klasifikasi === */
 .results-section__header {
     background-color: var(--qoffea-mid-brown);
     color: #FFFFFF;
@@ -201,9 +198,6 @@ body {
     font-size: 1rem;
     line-height: 1.5;
 }
-
-
-
 
 .analysis-image-section .img-fluid {
     border-radius: 15px;
@@ -324,14 +318,8 @@ body {
     text-decoration: underline;
 }
 
-/* ===
-   STYLE HALAMAN PANDUAN KERJA
-   Tambahkan ini di Bawah file style.css kamu
-   === */
-
-/* === Bagian Panduan Atas === */
 .guide-card {
-    background-color: #FBF8F1; /* Krem lebih muda */
+    background-color: #FBF8F1;
     border-radius: 15px;
     padding: 25px 20px;
     height: 100%;
@@ -360,16 +348,13 @@ body {
     text-align: justify;
 }
 
-/* === Bagian Panduan Mutu === */
-
-/* Style untuk Tab */
 .mutu-guide-section .nav-tabs {
-    border-bottom: none; /* Hapus border default Bootstrap */
-    margin-bottom: -2px; /* Menarik tab ke atas border konten */
+    border-bottom: none; 
+    margin-bottom: -2px; 
 }
 
 .mutu-guide-section .nav-link {
-    background-color: #E0E0E0; /* Warna abu-abu non-aktif */
+    background-color: #E0E0E0; 
     color: var(--qoffea-dark-brown);
     border: none;
     border-radius: 10px 10px 0 0;
@@ -380,30 +365,28 @@ body {
 }
 
 .mutu-guide-section .nav-link.active {
-    background-color: var(--qoffea-green); /* Warna hijau aktif */
+    background-color: var(--qoffea-green);
     color: #FFFFFF;
     border: none;
 }
 
-/* Box Konten Grade */
 .grade-display-box {
-    border: 2px solid var(--qoffea-green); /* Border hijau */
-    border-radius: 0 0 10px 10px; /* Radius hanya di bawah */
-    overflow: hidden; /* Penting agar header tidak keluar box */
-    background-color: #FBF8F1; /* Krem lebih muda */
+    border: 2px solid var(--qoffea-green); 
+    border-radius: 0 0 10px 10px; 
+    overflow: hidden; 
+    background-color: #FBF8F1; 
 }
 
-/* Atur ulang radius jika tab-pane aktif */
 .tab-pane.active .grade-display-box:first-of-type {
     border-radius: 0 0 10px 10px;
 }
-/* Khusus untuk tab-pane arabika (yang pertama) */
+
 #arabika-pane .grade-display-box:first-of-type {
-    border-radius: 0 10px 10px 10px; /* Radius beda di sudut kiri atas */
+    border-radius: 0 10px 10px 10px; 
 }
-/* Khusus untuk tab-pane robusta (yang kedua) */
+
 #robusta-pane .grade-display-box:first-of-type {
-    border-radius: 10px 0 10px 10px; /* Radius beda di sudut kanan atas */
+    border-radius: 10px 0 10px 10px; 
 }
 
 
@@ -428,14 +411,12 @@ body {
     line-height: 1.6;
 }
 
-/* Warna Header Grade */
 .header-grade-a {
     background-color: var(--qoffea-green);
 }
 .header-grade-b {
     background-color: var(--qoffea-yellow);
-    color: var(--qoffea-dark-brown); /* Teks gelap di atas kuning */
+    color: var(--qoffea-dark-brown); 
 }
 .header-grade-c {
-    background-color: #D9534F; /* Merah (warna baru) */
-}
+    background-color: #D9534F;}
