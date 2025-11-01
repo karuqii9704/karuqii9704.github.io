@@ -9,11 +9,11 @@
     
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
     <header class="site-header">
         <nav class="navbar navbar-expand-lg navbar-dark container">
-            <div class="container-fluid">
+            <div class="container">
                 <a class="navbar-brand site-logo" href="#">
                     <img src="Assets/Logo Qoffe Baru.png" alt="Qoffea Logo" height="50">
                 </a>
@@ -36,8 +36,8 @@
         </nav>
     </header>
 
-    <main class="main-content py-4 py-md-5">
-        <div class="container-fluid">
+    <main class="main-content py-4 py-md-5 flex-grow-1">
+        <div class="container">
             
             <section class="top-guide-section text-center mb-5 mx-auto" style="max-width: 1100px;">
                 <h2 class="page-title mb-4">Panduan kerja</h2>
@@ -67,55 +67,7 @@
                 </div>
             </section>
 
-            <section class="mutu-guide-section mx-auto" style="max-width: 900px;">
-                <h2 class="page-title text-center mb-4">Panduan mutu biji kopi</h2>
-
-                <ul class="nav nav-tabs nav-justified" id="mutuTab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="arabika-tab" data-bs-toggle="tab" data-bs-target="#arabika-pane" type="button" role="tab" aria-controls="arabika-pane" aria-selected="true">
-                            Arabika
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="robusta-tab" data-bs-toggle="tab" data-bs-target="#robusta-pane" type="button" role="tab" aria-controls="robusta-pane" aria-selected="false">
-                            Robusta
-                        </button>
-                    </li>
-                </ul>
-
-                <div class="tab-content" id="mutuTabContent">
-                    
-                    <div class="tab-pane fade show active" id="arabika-pane" role="tabpanel" aria-labelledby="arabika-tab" tabindex="0">
-                        
-                        <div class="grade-display-box mb-4">
-                            <div class="grade-display-box__header header-grade-a">Grade A : Baik sekali</div>
-                            <img src="Assets/coffe_beans.jpg" alt="Biji Kopi Grade A" class="grade-display-box__image">
-                            <p class="grade-display-box__text">Pastikan Cahaya Cukup Ambil foto di lokasi yang terang. Gunakan pencahayaan alami (sinar matahari tidak langsung) jika memungkinkan. Hindari bayangan gelap yang menutupi biji kopi dan hindari juga pantulan lampu (flash) yang terlalu silau.</p>
-                        </div>
-
-                        <div class="grade-display-box mb-4">
-                            <div class="grade-display-box__header header-grade-b">Grade B : Baik</div>
-                            <img src="Assets/coffe_beans.jpg" alt="Biji Kopi Grade B" class="grade-display-box__image">
-                            <p class="grade-display-box__text">Pastikan Cahaya Cukup Ambil foto di lokasi yang terang. Gunakan pencahayaan alami (sinar matahari tidak langsung) jika memungkinkan. Hindari bayangan gelap yang menutupi biji kopi dan hindari juga pantulan lampu (flash) yang terlalu silau.</p>
-                        </div>
-
-                        <div class="grade-display-box">
-                            <div class="grade-display-box__header header-grade-c">Grade C : Cukup</div>
-                            <img src="Assets/coffe_beans.jpg" alt="Biji Kopi Grade C" class="grade-display-box__image">
-                            <p class="grade-display-box__text">Pastikan Cahaya Cukup Ambil foto di lokasi yang terang. Gunakan pencahayaan alami (sinar matahari tidak langsung) jika memungkinkan. Hindari bayangan gelap yang menutupi biji kopi dan hindari juga pantulan lampu (flash) yang terlalu silau.</p>
-                        </div>
-
-                    </div>
-                    
-                    <div class="tab-pane fade" id="robusta-pane" role="tabpanel" aria-labelledby="robusta-tab" tabindex="0">
-                        <div class="text-center p-5">
-                            <h3 class="text-qoffea-green">Konten Robusta</h3>
-                            <p>Tampilkan panduan mutu biji kopi Robusta di sini.</p>
-                        </div>
-                    </div>
-                </div>
-
-            </section>
+           
 
         </div>
     </main>
