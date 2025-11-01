@@ -68,16 +68,18 @@ body {
 }
 
 
-.team-section__title {
-    color: var(--qoffea-green);
-    font-weight: bold;
-    font-size: 2rem;
+.team-photo {
+  height: 180px;           
+  width: 100%;             
+  object-fit: cover;       
+  border-radius: 0.375rem; 
+  background-color: var(--qoffea-grey); 
 }
 
-.team-member-placeholder {
-    background-color: var(--qoffea-grey);
-    height: 180px;
-    border-radius: 0.375rem;
+.team-section__title {
+  color: var(--qoffea-green);
+  font-weight: bold;
+  font-size: 2rem;
 }
 
 
