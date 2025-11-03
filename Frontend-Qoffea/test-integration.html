@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Integration - Qoffea</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        button {
+            background: #4A2511;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #6F4E37;
+        }
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 5px;
+            white-space: pre-wrap;
+        }
+        img {
+            max-width: 100%;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Qoffea Integration Test</h1>
+    
+    <div class="test-section">
+        <h2>1. Health Check</h2>
+        <button onclick="testHealth()">Test Health Endpoint</button>
+        <div id="healthResult" class="result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>2. Upload & Analyze</h2>
+        <input type="file" id="fileInput" accept="image/*">
+        <button onclick="testUpload()">Upload & Analyze</button>
+        <div id="uploadResult" class="result"></div>
+        <div id="imagePreview"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>3. Download PDF</h2>
+        <input type="text" id="analysisId" placeholder="Analysis ID" style="padding: 8px; width: 300px;">
+        <button onclick="testDownloadPDF()">Download PDF</button>
+        <div id="pdfResult" class="result"></div>
+    </div>
+
+    <script>
+        const API_URL = 'http://127.0.0.1:5000/api';
+        
+        async function testHealth() {
+            const resultDiv = document.getElementById('healthResult');
+            resultDiv.textContent = 'Loading...';
+            
+            try {
+                const response = await fetch(`${API_URL}/health`);
+                const data = await response.json();
+                resultDiv.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                resultDiv.textContent = 'Error: ' + error.message;
+            }
+        }
+        
+        async function testUpload() {
+            const fileInput = document.getElementById('fileInput');
+            const resultDiv = document.getElementById('uploadResult');
+            const previewDiv = document.getElementById('imagePreview');
+            
+            if (!fileInput.files[0]) {
+                alert('Please select a file first');
+                return;
+            }
+            
+            resultDiv.textContent = 'Uploading and analyzing...';
+            previewDiv.innerHTML = '';
+            
+            try {
+                const formData = new FormData();
+                formData.append('file', fileInput.files[0]);
+                formData.append('source', 'test');
+                
+                const response = await fetch(`${API_URL}/upload`, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                resultDiv.textContent = JSON.stringify(data, null, 2);
+                
+                if (data.success && data.annotated_filename) {
+                    const img = document.createElement('img');
+                    img.src = `http://127.0.0.1:5000/uploads/${data.annotated_filename}`;
+                    previewDiv.appendChild(img);
+                    
+                    // Set analysis ID for PDF test
+                    document.getElementById('analysisId').value = data.analysis_id;
+                }
+            } catch (error) {
+                resultDiv.textContent = 'Error: ' + error.message;
+            }
+        }
+        
+        async function testDownloadPDF() {
+            const analysisId = document.getElementById('analysisId').value;
+            const resultDiv = document.getElementById('pdfResult');
+            
+            if (!analysisId) {
+                alert('Please enter analysis ID');
+                return;
+            }
+            
+            resultDiv.textContent = 'Generating PDF...';
+            
+            try {
+                const response = await fetch(`${API_URL}/report/${analysisId}/download`);
+                
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `qoffea_report_${analysisId}.pdf`;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                    
+                    resultDiv.textContent = 'PDF downloaded successfully!';
+                } else {
+                    const error = await response.json();
+                    resultDiv.textContent = 'Error: ' + JSON.stringify(error);
+                }
+            } catch (error) {
+                resultDiv.textContent = 'Error: ' + error.message;
+            }
+        }
+    </script>
+</body>
+</html>
