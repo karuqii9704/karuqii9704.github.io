@@ -14,6 +14,7 @@ Panduan lengkap untuk deploy Qoffea Backend ke Google Cloud Platform.
 ### 1. Install Google Cloud CLI
 
 **Windows:**
+
 ```powershell
 # Download dari: https://cloud.google.com/sdk/docs/install
 # Atau gunakan chocolatey:
@@ -21,6 +22,7 @@ choco install gcloudsdk
 ```
 
 **Verifikasi instalasi:**
+
 ```powershell
 gcloud --version
 ```
@@ -61,6 +63,7 @@ gcloud services enable artifactregistry.googleapis.com
 Cloud Run adalah serverless platform yang cocok untuk aplikasi ML seperti Qoffea.
 
 #### Keuntungan:
+
 - ✅ Auto-scaling (scale to zero)
 - ✅ Pay per use
 - ✅ Support Docker container
@@ -152,6 +155,7 @@ gcloud run services update qoffea-backend \
 ## 📊 Monitoring & Logs
 
 ### Lihat Logs:
+
 ```powershell
 # Real-time logs
 gcloud run services logs tail qoffea-backend --region asia-southeast2
@@ -161,6 +165,7 @@ gcloud run services logs tail qoffea-backend --region asia-southeast2
 ```
 
 ### Monitoring:
+
 ```powershell
 # Lihat service details
 gcloud run services describe qoffea-backend --region asia-southeast2
@@ -172,6 +177,7 @@ gcloud run services describe qoffea-backend --region asia-southeast2
 ## 🔒 Security & Authentication
 
 ### Allow Unauthenticated Access (Public API):
+
 ```powershell
 gcloud run services add-iam-policy-binding qoffea-backend \
   --region asia-southeast2 \
@@ -180,6 +186,7 @@ gcloud run services add-iam-policy-binding qoffea-backend \
 ```
 
 ### Require Authentication:
+
 ```powershell
 gcloud run services remove-iam-policy-binding qoffea-backend \
   --region asia-southeast2 \
@@ -192,6 +199,7 @@ gcloud run services remove-iam-policy-binding qoffea-backend \
 ### Tips untuk menghemat biaya:
 
 1. **Set max instances**:
+
 ```powershell
 gcloud run services update qoffea-backend \
   --region asia-southeast2 \
@@ -199,6 +207,7 @@ gcloud run services update qoffea-backend \
 ```
 
 2. **Set min instances** (0 untuk scale to zero):
+
 ```powershell
 gcloud run services update qoffea-backend \
   --region asia-southeast2 \
@@ -206,6 +215,7 @@ gcloud run services update qoffea-backend \
 ```
 
 3. **Optimize memory**:
+
 ```powershell
 # Start dengan 2Gi, naikkan jika perlu
 gcloud run services update qoffea-backend \
@@ -223,6 +233,7 @@ gcloud run services update qoffea-backend \
 4. Tambah domain dan ikuti instruksi DNS
 
 Atau via CLI:
+
 ```powershell
 gcloud run domain-mappings create \
   --service qoffea-backend \
@@ -235,11 +246,13 @@ gcloud run domain-mappings create \
 Setup automatic deployment dari GitHub:
 
 1. **Connect Repository**:
+
    - Buka Cloud Build Console
    - Klik "Triggers"
    - Connect ke GitHub repository
 
 2. **Create Trigger**:
+
 ```powershell
 gcloud builds triggers create github \
   --repo-name=karuqii9704.github.io \
@@ -272,12 +285,13 @@ Update URL backend di `Frontend-Qoffea/js/app.js`:
 
 ```javascript
 // Ganti dengan URL Cloud Run Anda
-const API_BASE_URL = 'https://qoffea-backend-xxxxx-xx.a.run.app';
+const API_BASE_URL = "https://qoffea-backend-xxxxx-xx.a.run.app";
 ```
 
 ## 🚨 Troubleshooting
 
 ### Issue: Container fails to start
+
 ```powershell
 # Check logs
 gcloud run services logs tail qoffea-backend --region asia-southeast2
@@ -287,6 +301,7 @@ gcloud run services describe qoffea-backend --region asia-southeast2
 ```
 
 ### Issue: Out of memory
+
 ```powershell
 # Increase memory
 gcloud run services update qoffea-backend \
@@ -295,6 +310,7 @@ gcloud run services update qoffea-backend \
 ```
 
 ### Issue: Timeout
+
 ```powershell
 # Increase timeout (max 3600s)
 gcloud run services update qoffea-backend \
@@ -303,6 +319,7 @@ gcloud run services update qoffea-backend \
 ```
 
 ### Issue: Model download fails
+
 - Check Hugging Face model repository accessible
 - Verify environment variables set correctly
 - Check internet connectivity from Cloud Run
