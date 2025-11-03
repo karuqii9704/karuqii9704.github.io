@@ -12,6 +12,9 @@ opencv-python==4.10.0.84
 pillow==10.4.0
 numpy>=1.23.0,<2.0.0
 
+# Hugging Face Model Hub
+huggingface_hub>=0.20.0
+
 # PDF Generation
 reportlab==4.2.5
 

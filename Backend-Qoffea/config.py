@@ -12,7 +12,10 @@ class Config:
     
     # Model
     BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-    MODEL_PATH = os.getenv('MODEL_PATH', os.path.join(BASE_DIR, 'models', 'best.pt'))
+    # Hugging Face Model Configuration
+    HF_MODEL_REPO = os.getenv('HF_MODEL_REPO', 'rakaval/coffea')
+    HF_MODEL_FILE = os.getenv('HF_MODEL_FILE', 'best.pt')  # nama file model di repo
+    MODEL_CACHE_DIR = os.getenv('MODEL_CACHE_DIR', os.path.join(BASE_DIR, 'model_cache'))
     CONFIDENCE_THRESHOLD = float(os.getenv('CONFIDENCE_THRESHOLD', 0.5))
     
     # Upload
@@ -29,3 +32,4 @@ class Config:
         """Initialize application folders"""
         os.makedirs(Config.UPLOAD_FOLDER, exist_ok=True)
         os.makedirs(Config.REPORT_FOLDER, exist_ok=True)
+        os.makedirs(Config.MODEL_CACHE_DIR, exist_ok=True)
