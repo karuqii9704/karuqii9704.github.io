@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aksi | Qoffea</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    <header class="site-header">
+        <nav class="navbar navbar-expand-lg navbar-dark container">
+            <div class="container-fluid">
+                <a class="navbar-brand site-logo" href="#">
+                    <img src="Assets/Logo Qoffe Baru.png" alt="Qoffea Logo" height="50">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav site-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Tentang kami</a> </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="aksi.html">Aksi</a> </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="panduan.html">Panduan kerja</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content py-4 py-md-5 flex-grow-1">
+        <div class="container-fluid">
+            
+            <section class="text-center mb-4">
+                <h2 class="page-title">Aksi</h2>
+            </section>
+
+            <section class="guide-section mb-5">
+                <div class="row g-3 justify-content-center">
+                    <div class="col-10 col-md-3">
+                        <div class="guide-box">
+                            <img src="Assets/ikon_matahari.png" alt="Ikon Matahari" class="guide-box__icon">
+                            <p class="guide-box__text">Pastikan biji kopi terlihat jelas di tempat terang</p>
+                        </div>
+                    </div>
+                    <div class="col-10 col-md-3">
+                        <div class="guide-box">
+                            <img src="Assets/ikon_biji_kopi.png" alt="Ikon Biji Kopi" class="guide-box__icon">
+                            <p class="guide-box__text">Sebar biji dalam satu lapisan dan tidak menumpuk</p>
+                        </div>
+                    </div>
+                    <div class="col-10 col-md-3">
+                        <div class="guide-box">
+                            <img src="Assets/ikon_kamera.png" alt="Ikon Fokus" class="guide-box__icon">
+                            <p class="guide-box__text">Pastikan gambar fokus dan tidak buram</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="upload-section mb-5">
+                <div class="row g-4 justify-content-center align-items-center">
+                    <div class="col-10 col-md-4 text-center">
+                        <img src="Assets/coffe_beans.jpg" alt="Preview Biji Kopi" class="upload-section__preview-image img-fluid">
+                    </div>
+                    <div class="col-10 col-md-4 text-center">
+                        <h3 class="upload-section__title">Upload Biji Kopimu disini</h3>
+                        <input type="file" id="imageInput" accept="image/jpeg,image/jpg,image/png" style="display: none;">
+                        <div class="d-grid gap-3">
+                            <button id="openCameraBtn" class="btn btn-qoffea-secondary">Buka Kamera</button>
+                            <button id="openGalleryBtn" class="btn btn-qoffea-primary">Pilih dari galeri</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+           <section class="results-section mx-auto mb-5" style="max-width: 900px;">
+                <div class="results-section__header">
+                    Hasil Klasifikasi
+                </div>
+                <div class="results-section__body">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <h4 class="results-section__title">Persentase kualitas biji kopi:</h4>
+                            
+                            <div class="d-flex align-items-center mt-4">
+                                <div class="grade-text me-4">
+                                    <p class="grade-text__item grade-text--good">Baik <span>0%</span></p>
+                                    <p class="grade-text__item grade-text--defect">Cacat <span>0%</span></p>
+                                </div>
+                                <div class="stacked-bar-container">
+                                    <div class="stacked-bar-segment segment-good" style="height: 0%;" title="Good: 0%"></div>
+                                    <div class="stacked-bar-segment segment-defect" style="height: 0%;" title="Defect: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5 d-flex align-items-center justify-content-center mt-4 mt-md-0">
+                            <div class="overall-grade-box">
+                                <p class="overall-grade-box__text mb-0">Mutu keseluruhan:</p>
+                                <span class="overall-grade-box__grade">A</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h5 class="results-section__desc-title mt-4">Deskripsi :</h5>
+                    <p class="results-section__desc-text mb-0">Menunggu hasil analisis...</p>
+                    <button id="downloadPdfBtn" class="btn btn-qoffea-primary mt-3">Download Laporan PDF</button>
+                </div>
+            </section>
+
+            <section class="analysis-image-section text-center mb-4">
+                <img src="Assets/biji_kopi_1.png" alt="Gambar Analisis Biji Kopi" class="img-fluid">
+            </section>
+
+            <section class="text-center mb-4">
+                <button id="analyzeAgainBtn" class="btn btn-qoffea-primary btn-analyze-again">Analisis lagi</button>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="site-footer py-4">
+        <div class="container site-footer__content d-flex flex-wrap justify-content-between align-items-center text-white">
+            <img class="site-footer__logo" src="Assets/Logo Qoffe Baru.png" alt="Qoffea Logo" height="30">
+            <div class="site-footer__credits text-end">
+                <p class="mb-0 small">Coffee Beans Image Classification</p>
+                <p class="mb-0 small">by Artificial Intelligence</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

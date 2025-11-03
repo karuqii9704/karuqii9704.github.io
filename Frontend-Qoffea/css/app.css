@@ -1,0 +1,247 @@
+/* Additional styles for app functionality */
+
+/* Loading Overlay */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.loading-content {
+    text-align: center;
+    color: white;
+}
+
+.loading-text {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+}
+
+/* Statistics Grid */
+.statistics-container {
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.statistics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 0.75rem;
+    background: white;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.stat-value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.stat-good .stat-value {
+    color: #28a745;
+}
+
+.stat-defect .stat-value {
+    color: #dc3545;
+}
+
+/* Grade Colors */
+.grade-a {
+    color: #28a745 !important;
+}
+
+.grade-b {
+    color: #ffc107 !important;
+}
+
+.grade-c {
+    color: #dc3545 !important;
+}
+
+.grade-d {
+    color: #6c757d !important;
+}
+
+/* Stacked Bar */
+.stacked-bar-container {
+    width: 60px;
+    height: 200px;
+    background: #e9ecef;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.stacked-bar-segment {
+    width: 100%;
+    transition: height 0.5s ease;
+}
+
+.segment-good {
+    background: linear-gradient(180deg, #28a745 0%, #20c997 100%);
+}
+
+.segment-defect {
+    background: linear-gradient(180deg, #dc3545 0%, #c82333 100%);
+}
+
+/* Button Enhancements */
+button.btn {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+button.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Grade Text Items */
+.grade-text__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-radius: 4px;
+}
+
+.grade-text--good {
+    background: rgba(40, 167, 69, 0.1);
+    border-left: 3px solid #28a745;
+}
+
+.grade-text--defect {
+    background: rgba(220, 53, 69, 0.1);
+    border-left: 3px solid #dc3545;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .statistics-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .stacked-bar-container {
+        height: 150px;
+        width: 50px;
+    }
+}
+
+/* Hide sections initially */
+.results-section,
+.analysis-image-section {
+    display: none;
+}
+
+/* Image preview enhancement */
+.upload-section__preview-image {
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Analysis image */
+.analysis-image-section img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Camera Modal Styles */
+#cameraVideo {
+    width: 100%;
+    max-width: 640px;
+    border-radius: 8px;
+    background: #000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+#cameraCanvas {
+    display: none;
+}
+
+#cameraError {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.modal-content {
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+
+.modal-header {
+    background: linear-gradient(135deg, #6B4423 0%, #8B5A3C 100%);
+    color: white;
+    border-radius: 12px 12px 0 0;
+    border-bottom: none;
+    padding: 1.25rem 1.5rem;
+}
+
+.modal-header .btn-close {
+    filter: brightness(0) invert(1);
+}
+
+.modal-body {
+    padding: 2rem;
+}
+
+.modal-footer {
+    border-top: 1px solid #dee2e6;
+    padding: 1rem 1.5rem;
+}
+
+#capturePhotoBtn {
+    background: linear-gradient(135deg, #6B4423 0%, #8B5A3C 100%);
+    border: none;
+    padding: 0.625rem 1.5rem;
+    font-weight: 600;
+}
+
+#capturePhotoBtn:hover {
+    background: linear-gradient(135deg, #5A3619 0%, #7A4A2C 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(107, 68, 35, 0.4);
+}
+
+#capturePhotoBtn:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+    transform: none;
+}
+
