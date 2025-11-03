@@ -24,7 +24,13 @@ def create_app():
     # Load AI model on startup
     try:
         print("🚀 Initializing Qoffea Backend...")
-        model_loader.load_model(Config.MODEL_PATH, Config.CONFIDENCE_THRESHOLD)
+        print(f"📥 Loading model from Hugging Face: {Config.HF_MODEL_REPO}")
+        model_loader.load_model(
+            model_repo=Config.HF_MODEL_REPO,
+            model_file=Config.HF_MODEL_FILE,
+            cache_dir=Config.MODEL_CACHE_DIR,
+            confidence=Config.CONFIDENCE_THRESHOLD
+        )
         print("✅ Model loaded successfully!")
     except Exception as e:
         print(f"❌ Failed to load model: {e}")
