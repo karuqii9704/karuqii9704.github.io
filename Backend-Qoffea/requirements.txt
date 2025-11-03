@@ -28,6 +28,5 @@ pyyaml==6.0.2
 # HTTP Requests for Testing
 requests==2.32.3
 
-# Optional: untuk production deployment
-# gunicorn==21.2.0
-# waitress==3.0.0
+# Production WSGI Server
+gunicorn==21.2.0

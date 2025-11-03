@@ -6,7 +6,7 @@ load_dotenv()
 class Config:
     # Flask
     SECRET_KEY = os.getenv('SECRET_KEY', 'dev-secret-key-change-in-production')
-    DEBUG = os.getenv('FLASK_DEBUG', '1') == '1'
+    DEBUG = os.getenv('FLASK_DEBUG', '0') == '1'  # Default False untuk production
     HOST = os.getenv('HOST', '0.0.0.0')
     PORT = int(os.getenv('PORT', 5000))
     
