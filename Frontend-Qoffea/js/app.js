@@ -432,6 +432,17 @@ function displayAnnotatedImage(filename) {
         analysisImage.src = imageUrl;
         analysisImage.alt = 'Analisis Biji Kopi dengan Deteksi';
         console.log('Loading annotated image from:', imageUrl);
+        
+        // Add error handler for image loading
+        analysisImage.onerror = function() {
+            console.error('Failed to load image from:', imageUrl);
+            showError('Gambar hasil analisis gagal dimuat. File mungkin sudah dihapus dari server (ephemeral storage).');
+        };
+        
+        // Add success handler
+        analysisImage.onload = function() {
+            console.log('Image loaded successfully from:', imageUrl);
+        };
     }
 }
 
