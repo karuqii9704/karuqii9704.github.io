@@ -5,6 +5,7 @@ Panduan lengkap untuk monitoring, controlling, dan maintenance aplikasi Qoffea y
 ## 🌐 URL Aplikasi
 
 ### Production URLs
+
 - **Backend API:** `https://qoffea-backend-c26brvbilq-et.a.run.app`
 - **Frontend:** `https://storage.googleapis.com/qoffea-frontend-7133/index.html`
 - **Project ID:** `qoffea-backend-7133`
@@ -15,6 +16,7 @@ Panduan lengkap untuk monitoring, controlling, dan maintenance aplikasi Qoffea y
 ## 📱 Quick Access Links
 
 ### Google Cloud Console
+
 ```
 # Project Dashboard
 https://console.cloud.google.com/home/dashboard?project=qoffea-backend-7133
@@ -43,6 +45,7 @@ https://console.cloud.google.com/billing?project=qoffea-backend-7133
 ## 🔍 Monitoring Backend (Cloud Run)
 
 ### 1. Health Check
+
 Test apakah backend masih running:
 
 ```powershell
@@ -97,6 +100,7 @@ gcloud run revisions list \
 ### 4. Metrics Dashboard
 
 **Via Web Console:**
+
 1. Buka https://console.cloud.google.com/run/detail/asia-southeast2/qoffea-backend/metrics?project=qoffea-backend-7133
 2. Lihat metrics:
    - **Request count** - Jumlah request per menit
@@ -106,6 +110,7 @@ gcloud run revisions list \
    - **Container instance count** - Jumlah instances running
 
 **Key Metrics to Monitor:**
+
 - ⚠️ **Request latency > 5s** - Backend lambat, perlu optimasi
 - ⚠️ **Memory usage > 90%** - Risiko out of memory, perlu tambah memory
 - ⚠️ **Error rate > 5%** - Ada masalah di aplikasi, cek logs
@@ -143,6 +148,7 @@ Invoke-WebRequest -Uri "https://storage.googleapis.com/qoffea-frontend-7133/aksi
 ### 3. View Storage Metrics
 
 **Via Web Console:**
+
 1. Buka https://console.cloud.google.com/storage/browser/qoffea-frontend-7133?project=qoffea-backend-7133
 2. Klik tab "Observability"
 3. Lihat:
@@ -286,6 +292,7 @@ gcloud storage objects update gs://qoffea-frontend-7133/*.html \
 ### 1. Set Up Alerts
 
 **Via Web Console:**
+
 1. Buka https://console.cloud.google.com/monitoring/alerting?project=qoffea-backend-7133
 2. Click "Create Policy"
 3. Setup alerts untuk:
@@ -316,12 +323,14 @@ Invoke-WebRequest -Uri "https://storage.googleapis.com/qoffea-frontend-7133/inde
 ### 3. Weekly Review
 
 **Check these metrics weekly:**
+
 1. **Request count trends** - Are users increasing?
 2. **Error rate** - Any recurring errors?
 3. **Cost trends** - Billing amount normal?
 4. **Performance** - Latency acceptable?
 
 **Via Console:**
+
 ```
 https://console.cloud.google.com/run/detail/asia-southeast2/qoffea-backend/metrics?project=qoffea-backend-7133
 ```
@@ -463,13 +472,14 @@ gcloud billing accounts list
 ### Cost Breakdown
 
 **Typical Monthly Costs (Low Traffic):**
+
 - Cloud Run: $5-15
   - First 2 million requests: FREE
   - $0.40 per million requests after
   - Memory: $0.0000025 per GB-second
   - CPU: $0.00002400 per vCPU-second
-  
 - Cloud Storage: $0.50-2
+
   - Storage: $0.020 per GB/month
   - Operations: Mostly free tier
   - Network egress: $0.12 per GB (after 1GB free)
@@ -589,11 +599,13 @@ gcloud run services update qoffea-backend \
 ## 📝 Maintenance Schedule
 
 ### Daily (Automated)
+
 - ✅ Health check monitoring
 - ✅ Error log monitoring
 - ✅ Auto-scaling based on traffic
 
 ### Weekly (Manual - 15 mins)
+
 ```powershell
 # 1. Check metrics
 # Open: https://console.cloud.google.com/run/detail/asia-southeast2/qoffea-backend/metrics
@@ -609,6 +621,7 @@ gcloud run services logs read qoffea-backend \
 ```
 
 ### Monthly (Manual - 30 mins)
+
 ```powershell
 # 1. Update dependencies
 cd "e:\ACOOLLYEAHHH\New folder\karuqii9704.github.io\Backend-Qoffea"
@@ -669,15 +682,18 @@ gcloud run services update qoffea-backend \
 ## 📚 Additional Resources
 
 ### Documentation
+
 - [Cloud Run Documentation](https://cloud.google.com/run/docs)
 - [Cloud Storage Documentation](https://cloud.google.com/storage/docs)
 - [Cloud Monitoring](https://cloud.google.com/monitoring/docs)
 
 ### Support
+
 - [Google Cloud Support](https://cloud.google.com/support)
 - [Stack Overflow - google-cloud-run](https://stackoverflow.com/questions/tagged/google-cloud-run)
 
 ### Tools
+
 - [gcloud CLI Reference](https://cloud.google.com/sdk/gcloud/reference)
 - [Cloud Console](https://console.cloud.google.com)
 
