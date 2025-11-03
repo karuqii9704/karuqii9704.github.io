@@ -1,0 +1,48 @@
+# This file specifies files that are *not* uploaded to Google Cloud
+# using gcloud. It follows the same syntax as .gitignore
+
+.gcloudignore
+.git
+.gitignore
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+
+# Local development
+.env
+*.log
+.DS_Store
+
+# Testing
+test_*.py
+tests/
+.pytest_cache/
+
+# Documentation
+*.md
+!README.md
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Uploads and reports (will be created on cloud)
+uploads/*
+reports/*
+!uploads/.gitkeep
+!reports/.gitkeep
+
+# Model cache (will be downloaded from Hugging Face)
+model_cache/*
+models/*
+
+# Temporary files
+*.tmp
+*.bak

@@ -1,0 +1,48 @@
+# Google App Engine configuration
+# Note: App Engine Standard doesn't support ML models well
+# Recommend using Cloud Run instead for this application
+
+runtime: python311
+
+# App Engine Flexible is better for ML applications
+env: flex
+
+# Automatic scaling configuration
+automatic_scaling:
+  min_num_instances: 1
+  max_num_instances: 3
+  cpu_utilization:
+    target_utilization: 0.7
+
+# Resource configuration
+resources:
+  cpu: 2
+  memory_gb: 4
+  disk_size_gb: 20
+
+# Environment variables
+env_variables:
+  FLASK_ENV: 'production'
+  FLASK_DEBUG: '0'
+  HF_MODEL_REPO: 'rakaval/coffea'
+  HF_MODEL_FILE: 'best.pt'
+  CONFIDENCE_THRESHOLD: '0.5'
+  
+# Health check
+liveness_check:
+  path: "/api/health"
+  check_interval_sec: 30
+  timeout_sec: 4
+  failure_threshold: 2
+
+readiness_check:
+  path: "/api/health"
+  check_interval_sec: 5
+  timeout_sec: 4
+  failure_threshold: 2
+  app_start_timeout_sec: 300
+
+# Network settings
+network:
+  forwarded_ports:
+    - 5000

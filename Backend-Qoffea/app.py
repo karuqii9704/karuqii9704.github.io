@@ -136,8 +136,10 @@ def create_app():
     
     return app
 
+# Create app instance for gunicorn
+app = create_app()
+
 if __name__ == '__main__':
-    app = create_app()
     app.run(
         host=Config.HOST,
         port=Config.PORT,
