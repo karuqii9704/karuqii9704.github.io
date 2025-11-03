@@ -11,16 +11,18 @@ Ringkasan lengkap deployment aplikasi Qoffea di Google Cloud Platform.
 ## 🌐 URLs Aplikasi
 
 ### Backend API (Cloud Run)
+
 **Status:** ✅ **ACTIVE & READY**
 
-| Endpoint | URL | Method |
-|----------|-----|--------|
-| **Base URL** | `https://qoffea-backend-c26brvbilq-et.a.run.app` | - |
-| Health Check | `https://qoffea-backend-c26brvbilq-et.a.run.app/api/health` | GET |
-| Upload Image | `https://qoffea-backend-c26brvbilq-et.a.run.app/api/upload` | POST |
-| Get Report | `https://qoffea-backend-c26brvbilq-et.a.run.app/api/report/{id}` | GET |
+| Endpoint     | URL                                                              | Method |
+| ------------ | ---------------------------------------------------------------- | ------ |
+| **Base URL** | `https://qoffea-backend-c26brvbilq-et.a.run.app`                 | -      |
+| Health Check | `https://qoffea-backend-c26brvbilq-et.a.run.app/api/health`      | GET    |
+| Upload Image | `https://qoffea-backend-c26brvbilq-et.a.run.app/api/upload`      | POST   |
+| Get Report   | `https://qoffea-backend-c26brvbilq-et.a.run.app/api/report/{id}` | GET    |
 
 **Test Backend:**
+
 ```powershell
 # Test health check
 Invoke-RestMethod -Uri "https://qoffea-backend-c26brvbilq-et.a.run.app/api/health"
@@ -31,47 +33,52 @@ Invoke-RestMethod -Uri "https://qoffea-backend-c26brvbilq-et.a.run.app/api/healt
 ### Frontend (Multiple Options)
 
 #### Option 1: HTTP via Load Balancer with nip.io ✅ **READY NOW**
+
 **Recommended untuk testing sekarang**
 
-| Page | URL |
-|------|-----|
-| Homepage | `http://34-49-190-69.nip.io/index.html` |
-| Upload/Aksi | `http://34-49-190-69.nip.io/aksi.html` |
-| Panduan | `http://34-49-190-69.nip.io/panduan.html` |
+| Page             | URL                                                |
+| ---------------- | -------------------------------------------------- |
+| Homepage         | `http://34-49-190-69.nip.io/index.html`            |
+| Upload/Aksi      | `http://34-49-190-69.nip.io/aksi.html`             |
+| Panduan          | `http://34-49-190-69.nip.io/panduan.html`          |
 | Test Integration | `http://34-49-190-69.nip.io/test-integration.html` |
 
 **Static IP:** `34.49.190.69`
 
-#### Option 2: HTTPS via Load Balancer ⏳ **PROVISIONING** 
+#### Option 2: HTTPS via Load Balancer ⏳ **PROVISIONING**
+
 **Akan ready dalam 15-60 menit**
 
-| Page | URL |
-|------|-----|
-| Homepage | `https://34-49-190-69.nip.io/index.html` |
-| Upload/Aksi | `https://34-49-190-69.nip.io/aksi.html` |
-| Panduan | `https://34-49-190-69.nip.io/panduan.html` |
+| Page        | URL                                        |
+| ----------- | ------------------------------------------ |
+| Homepage    | `https://34-49-190-69.nip.io/index.html`   |
+| Upload/Aksi | `https://34-49-190-69.nip.io/aksi.html`    |
+| Panduan     | `https://34-49-190-69.nip.io/panduan.html` |
 
 **SSL Status:** PROVISIONING (sedang diaktifkan Google)
 
 **Check SSL Status:**
+
 ```powershell
 gcloud compute ssl-certificates describe qoffea-ssl-cert --global --format="value(managed.status)"
 ```
 
 #### Option 3: HTTPS via Cloud Storage ✅ **READY NOW**
+
 **Alternative dengan HTTPS yang sudah aktif**
 
-| Page | URL |
-|------|-----|
-| Homepage | `https://storage.googleapis.com/qoffea-frontend-7133/index.html` |
-| Upload/Aksi | `https://storage.googleapis.com/qoffea-frontend-7133/aksi.html` |
-| Panduan | `https://storage.googleapis.com/qoffea-frontend-7133/panduan.html` |
+| Page        | URL                                                                |
+| ----------- | ------------------------------------------------------------------ |
+| Homepage    | `https://storage.googleapis.com/qoffea-frontend-7133/index.html`   |
+| Upload/Aksi | `https://storage.googleapis.com/qoffea-frontend-7133/aksi.html`    |
+| Panduan     | `https://storage.googleapis.com/qoffea-frontend-7133/panduan.html` |
 
 ---
 
 ## 📊 Infrastructure Details
 
 ### Backend (Cloud Run)
+
 ```yaml
 Service Name: qoffea-backend
 Region: asia-southeast2
@@ -96,6 +103,7 @@ Features:
 ```
 
 ### Frontend (Load Balancer + Cloud Storage)
+
 ```yaml
 Storage Bucket: qoffea-frontend-7133
 Location: asia-southeast2
@@ -116,6 +124,7 @@ Configuration:
 ## 🚀 Quick Start Guide
 
 ### 1. Test Backend API
+
 ```powershell
 # Test health check
 Invoke-RestMethod -Uri "https://qoffea-backend-c26brvbilq-et.a.run.app/api/health"
@@ -134,21 +143,25 @@ Invoke-RestMethod -Uri "https://qoffea-backend-c26brvbilq-et.a.run.app/api/healt
 ### 2. Access Frontend (Choose One)
 
 **Option A: HTTP (Ready Now)**
+
 ```
 Open in browser: http://34-49-190-69.nip.io/aksi.html
 ```
 
 **Option B: HTTPS via Storage (Ready Now)**
+
 ```
 Open in browser: https://storage.googleapis.com/qoffea-frontend-7133/aksi.html
 ```
 
 **Option C: HTTPS via Load Balancer (Wait 30-60 minutes)**
+
 ```
 Open in browser: https://34-49-190-69.nip.io/aksi.html
 ```
 
 ### 3. Upload and Test
+
 1. Buka halaman aksi (pilih salah satu URL di atas)
 2. Upload foto kopi atau gunakan kamera
 3. Sistem akan analisis menggunakan AI model
@@ -161,6 +174,7 @@ Open in browser: https://34-49-190-69.nip.io/aksi.html
 ### Backend Management
 
 #### View Logs
+
 ```powershell
 # Real-time logs
 gcloud run services logs tail qoffea-backend --region asia-southeast2
@@ -173,6 +187,7 @@ gcloud run services logs read qoffea-backend --region asia-southeast2 --filter="
 ```
 
 #### Update Backend
+
 ```powershell
 # Update environment variables
 gcloud run services update qoffea-backend \
@@ -193,6 +208,7 @@ gcloud run services update qoffea-backend \
 ```
 
 #### Deploy New Version
+
 ```powershell
 cd "e:\ACOOLLYEAHHH\New folder\karuqii9704.github.io\Backend-Qoffea"
 gcloud run deploy qoffea-backend \
@@ -204,6 +220,7 @@ gcloud run deploy qoffea-backend \
 ### Frontend Management
 
 #### Update Frontend Files
+
 ```powershell
 cd "e:\ACOOLLYEAHHH\New folder\karuqii9704.github.io\Frontend-Qoffea"
 
@@ -219,6 +236,7 @@ gcloud storage cp -r . gs://qoffea-frontend-7133/ \
 ```
 
 #### Check SSL Certificate Status
+
 ```powershell
 # Check status
 gcloud compute ssl-certificates describe qoffea-ssl-cert \
@@ -241,6 +259,7 @@ gcloud compute ssl-certificates describe qoffea-ssl-cert --global
 ### Google Cloud Console Links
 
 **Backend Monitoring:**
+
 ```
 Cloud Run Dashboard:
 https://console.cloud.google.com/run/detail/asia-southeast2/qoffea-backend?project=qoffea-backend-7133
@@ -253,6 +272,7 @@ https://console.cloud.google.com/logs?project=qoffea-backend-7133
 ```
 
 **Frontend Monitoring:**
+
 ```
 Cloud Storage:
 https://console.cloud.google.com/storage/browser/qoffea-frontend-7133?project=qoffea-backend-7133
@@ -262,6 +282,7 @@ https://console.cloud.google.com/net-services/loadbalancing?project=qoffea-backe
 ```
 
 **Billing:**
+
 ```
 https://console.cloud.google.com/billing?project=qoffea-backend-7133
 ```
@@ -269,6 +290,7 @@ https://console.cloud.google.com/billing?project=qoffea-backend-7133
 ### Key Metrics to Monitor
 
 **Backend:**
+
 - Request count per minute
 - Request latency (p50, p95, p99)
 - Error rate (should be < 1%)
@@ -277,6 +299,7 @@ https://console.cloud.google.com/billing?project=qoffea-backend-7133
 - Container instance count
 
 **Frontend:**
+
 - Request count
 - Data transfer (egress)
 - Cache hit ratio (CDN)
@@ -289,12 +312,14 @@ https://console.cloud.google.com/billing?project=qoffea-backend-7133
 ### Monthly Costs (Estimated for Low-Medium Traffic)
 
 **Backend (Cloud Run):**
+
 - Free tier: 2 million requests/month
 - Memory: $0.0000025 per GB-second
 - CPU: $0.00002400 per vCPU-second
 - **Estimated:** $5-20/month
 
 **Frontend (Cloud Storage + Load Balancer):**
+
 - Storage: $0.020 per GB/month (~$0.10)
 - Load Balancer: $18/month (forwarding rule)
 - Data transfer: $0.12 per GB after 1GB free
@@ -303,6 +328,7 @@ https://console.cloud.google.com/billing?project=qoffea-backend-7133
 **Total Estimated Cost:** $25-50/month
 
 **Cost Optimization Tips:**
+
 1. Set min-instances=0 untuk scale to zero
 2. Set max-instances untuk limit scale
 3. Use Cloud CDN untuk reduce egress
@@ -316,6 +342,7 @@ https://console.cloud.google.com/billing?project=qoffea-backend-7133
 ### Current Security Settings
 
 **Backend:**
+
 - ✅ HTTPS enforced (automatic)
 - ✅ CORS enabled (configurable)
 - ✅ No authentication (public API)
@@ -323,6 +350,7 @@ https://console.cloud.google.com/billing?project=qoffea-backend-7133
 - ⚠️ Consider: Add API key authentication for production
 
 **Frontend:**
+
 - ✅ Public read access
 - ✅ HTTPS available (via Storage & Load Balancer)
 - ✅ CDN enabled
@@ -331,6 +359,7 @@ https://console.cloud.google.com/billing?project=qoffea-backend-7133
 ### Recommended Security Enhancements
 
 1. **Add API Key Authentication:**
+
 ```python
 # Backend: Add API key check
 API_KEY = os.getenv('API_KEY')
@@ -339,6 +368,7 @@ if request.headers.get('X-API-Key') != API_KEY:
 ```
 
 2. **Rate Limiting:**
+
 ```powershell
 # Via Cloud Armor (additional cost)
 gcloud compute security-policies create qoffea-rate-limit \
@@ -346,6 +376,7 @@ gcloud compute security-policies create qoffea-rate-limit \
 ```
 
 3. **Secret Management:**
+
 ```powershell
 # Use Secret Manager instead of env vars
 gcloud secrets create api-key --data-file=-
@@ -358,6 +389,7 @@ gcloud secrets create api-key --data-file=-
 ### Backend Issues
 
 #### Issue: 503 Service Unavailable
+
 ```powershell
 # Check service status
 gcloud run services describe qoffea-backend --region asia-southeast2
@@ -369,6 +401,7 @@ gcloud run services logs tail qoffea-backend --region asia-southeast2
 ```
 
 #### Issue: 504 Gateway Timeout
+
 ```powershell
 # Increase timeout
 gcloud run services update qoffea-backend \
@@ -379,6 +412,7 @@ gcloud run services update qoffea-backend \
 ```
 
 #### Issue: Out of Memory
+
 ```powershell
 # Increase memory
 gcloud run services update qoffea-backend \
@@ -389,6 +423,7 @@ gcloud run services update qoffea-backend \
 ### Frontend Issues
 
 #### Issue: 404 Not Found
+
 ```powershell
 # Check if file exists
 gcloud storage ls gs://qoffea-frontend-7133/
@@ -399,6 +434,7 @@ gcloud storage cp index.html gs://qoffea-frontend-7133/
 ```
 
 #### Issue: HTTPS Not Working (Load Balancer)
+
 ```powershell
 # Check SSL certificate status
 gcloud compute ssl-certificates describe qoffea-ssl-cert --global
@@ -408,6 +444,7 @@ gcloud compute ssl-certificates describe qoffea-ssl-cert --global
 ```
 
 #### Issue: CORS Error
+
 ```powershell
 # Update CORS on bucket
 echo '[{"origin": ["*"], "method": ["GET", "POST"], "maxAgeSeconds": 3600}]' > cors.json
@@ -419,6 +456,7 @@ gcloud storage buckets update gs://qoffea-frontend-7133 --cors-file=cors.json
 ## 📝 Next Steps
 
 ### Immediate (Done ✅)
+
 - [x] Deploy Backend to Cloud Run
 - [x] Deploy Frontend to Cloud Storage
 - [x] Setup Load Balancer
@@ -426,6 +464,7 @@ gcloud storage buckets update gs://qoffea-frontend-7133 --cors-file=cors.json
 - [x] Test all endpoints
 
 ### Short Term (Optional)
+
 - [ ] Wait for SSL certificate to become ACTIVE (15-60 minutes)
 - [ ] Test HTTPS access via Load Balancer
 - [ ] Setup custom domain (if needed)
@@ -433,6 +472,7 @@ gcloud storage buckets update gs://qoffea-frontend-7133 --cors-file=cors.json
 - [ ] Setup budget alerts
 
 ### Long Term (Recommended)
+
 - [ ] Purchase custom domain
 - [ ] Setup domain mapping for both frontend & backend
 - [ ] Implement API key authentication
@@ -447,6 +487,7 @@ gcloud storage buckets update gs://qoffea-frontend-7133 --cors-file=cors.json
 ## 📚 Additional Documentation
 
 **Full Guides Available:**
+
 - `GOOGLE_CLOUD_DEPLOYMENT.md` - Complete deployment guide
 - `CUSTOM_DOMAIN_GUIDE.md` - Custom domain setup
 - `MONITORING_GUIDE.md` - Monitoring & maintenance guide
@@ -454,6 +495,7 @@ gcloud storage buckets update gs://qoffea-frontend-7133 --cors-file=cors.json
 - `README.md` - Project overview
 
 **Google Cloud Documentation:**
+
 - [Cloud Run Docs](https://cloud.google.com/run/docs)
 - [Cloud Storage Docs](https://cloud.google.com/storage/docs)
 - [Load Balancer Docs](https://cloud.google.com/load-balancing/docs)
@@ -463,6 +505,7 @@ gcloud storage buckets update gs://qoffea-frontend-7133 --cors-file=cors.json
 ## 🆘 Support
 
 **Issues or Questions?**
+
 1. Check logs in Cloud Console
 2. Review troubleshooting section above
 3. Check Google Cloud documentation
@@ -473,6 +516,7 @@ gcloud storage buckets update gs://qoffea-frontend-7133 --cors-file=cors.json
 ## 🎯 Summary Checklist
 
 ### ✅ Working Right Now:
+
 - [x] Backend API (HTTPS) - `https://qoffea-backend-c26brvbilq-et.a.run.app`
 - [x] Frontend HTTP - `http://34-49-190-69.nip.io`
 - [x] Frontend Storage - `https://storage.googleapis.com/qoffea-frontend-7133/`
@@ -481,10 +525,12 @@ gcloud storage buckets update gs://qoffea-frontend-7133 --cors-file=cors.json
 - [x] PDF report generation working
 
 ### ⏳ Waiting (15-60 minutes):
+
 - [ ] Frontend HTTPS via Load Balancer - `https://34-49-190-69.nip.io`
 - [ ] SSL Certificate status: PROVISIONING → ACTIVE
 
 ### 🚀 Ready for Production:
+
 - [x] Backend deployed and scaled
 - [x] Frontend deployed with CDN
 - [x] Monitoring enabled
