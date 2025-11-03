@@ -424,12 +424,14 @@ function updateStatistics(analysis) {
  * Display annotated image
  */
 function displayAnnotatedImage(filename) {
-    // Note: You'll need to serve images from backend or adjust path
-    const imageUrl = `http://127.0.0.1:5000/uploads/${filename}`;
+    // Use backend API URL for annotated image
+    const imageUrl = `${API_BASE_URL.replace('/api', '')}/uploads/${filename}`;
     
     const analysisImage = document.querySelector('.analysis-image-section img');
     if (analysisImage) {
         analysisImage.src = imageUrl;
+        analysisImage.alt = 'Analisis Biji Kopi dengan Deteksi';
+        console.log('Loading annotated image from:', imageUrl);
     }
 }
 
