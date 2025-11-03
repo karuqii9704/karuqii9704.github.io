@@ -7,6 +7,7 @@
 ---
 
 ## 📋 Table of Contents
+
 - [Project Overview](#project-overview)
 - [GCP Project Details](#gcp-project-details)
 - [Deployed Services](#deployed-services)
@@ -24,6 +25,7 @@
 **Qoffea** adalah aplikasi AI untuk klasifikasi kualitas biji kopi menggunakan computer vision (YOLO v8).
 
 ### Tech Stack:
+
 - **Backend:** Flask 3.0.3 + Python 3.11
 - **ML Model:** Ultralytics YOLO v8 (Hugging Face: rakaval/coffea)
 - **Frontend:** HTML/CSS/JavaScript (Vanilla)
@@ -34,6 +36,7 @@
   - Google-managed SSL Certificate
 
 ### Features:
+
 - ✅ Upload gambar dari galeri atau kamera
 - ✅ Deteksi biji kopi (good/defect) dengan bounding boxes
 - ✅ Grading otomatis (A/B/C/D)
@@ -45,6 +48,7 @@
 ## 🔧 GCP Project Details
 
 ### Project Information
+
 ```bash
 Project ID: qoffea-backend-7133
 Project Number: 493152580351
@@ -54,6 +58,7 @@ Owner: rifqisigwannugraha@gmail.com
 ```
 
 ### Enabled APIs
+
 ```bash
 # List enabled APIs
 gcloud services list --enabled --project=qoffea-backend-7133
@@ -67,6 +72,7 @@ gcloud services list --enabled --project=qoffea-backend-7133
 ```
 
 ### IAM & Service Accounts
+
 ```bash
 # Main Service Account
 493152580351-compute@developer.gserviceaccount.com
@@ -86,6 +92,7 @@ gcloud iam service-accounts list --project=qoffea-backend-7133
 ### 1️⃣ Backend (Cloud Run)
 
 **Service Details:**
+
 ```yaml
 Service Name: qoffea-backend
 Region: asia-southeast2
@@ -95,6 +102,7 @@ Container: asia-southeast2-docker.pkg.dev/qoffea-backend-7133/cloud-run-source-d
 ```
 
 **Resource Configuration:**
+
 ```yaml
 Memory: 4Gi
 CPU: 2
@@ -105,6 +113,7 @@ Concurrency: 80 (default)
 ```
 
 **Environment Variables:**
+
 ```bash
 FLASK_ENV=production
 HF_MODEL_REPO=rakaval/coffea
@@ -113,6 +122,7 @@ CONFIDENCE_THRESHOLD=0.5
 ```
 
 **Check Service:**
+
 ```bash
 # Get service details
 gcloud run services describe qoffea-backend \
@@ -135,6 +145,7 @@ gcloud run revisions list \
 ### 2️⃣ Frontend (Cloud Storage + Load Balancer)
 
 **Storage Bucket:**
+
 ```yaml
 Bucket Name: qoffea-frontend-7133
 Location: asia-southeast2
@@ -144,6 +155,7 @@ Website Configuration: Enabled (index.html)
 ```
 
 **Backend Bucket:**
+
 ```yaml
 Backend Name: qoffea-frontend-backend
 CDN Enabled: Yes
@@ -151,6 +163,7 @@ Cache Mode: CACHE_ALL_STATIC
 ```
 
 **Load Balancer:**
+
 ```yaml
 Name: qoffea-lb
 Type: HTTPS Load Balancer
@@ -161,6 +174,7 @@ Status: ACTIVE
 ```
 
 **Check Frontend:**
+
 ```bash
 # List bucket contents
 gcloud storage ls gs://qoffea-frontend-7133/ --recursive
@@ -180,6 +194,7 @@ gcloud compute ssl-certificates describe qoffea-ssl-cert --global
 ## 🔗 URLs & Access Points
 
 ### Production URLs
+
 ```bash
 # Frontend (Load Balancer)
 HTTP:  http://34-49-190-69.nip.io
@@ -201,6 +216,7 @@ https://qoffea-backend-c26brvbilq-et.a.run.app/api/report/{id}/download
 ```
 
 ### Static IP
+
 ```bash
 Name: qoffea-static-ip
 Address: 34.49.190.69
@@ -565,6 +581,7 @@ docker run -p 5000:5000 qoffea-backend
 ### Current Configuration Costs (Estimated)
 
 **Cloud Run (Backend):**
+
 ```
 Memory: 4Gi
 CPU: 2 vCPU
@@ -579,6 +596,7 @@ Free tier: 2M requests, 360,000 GB-seconds, 180,000 vCPU-seconds per month
 ```
 
 **Cloud Storage (Frontend):**
+
 ```
 Storage: ~50MB
 Requests: ~1000/month
@@ -592,6 +610,7 @@ Free tier: 5GB storage, 5,000 Class A operations per month
 ```
 
 **Load Balancer + SSL:**
+
 ```
 Static IP: $0 (while in use)
 Forwarding rules: ~$18/month
@@ -690,10 +709,11 @@ If backend URL changes, update in frontend:
 
 ```javascript
 // File: Frontend-Qoffea/js/app.js
-const API_BASE_URL = 'https://qoffea-backend-c26brvbilq-et.a.run.app/api';
+const API_BASE_URL = "https://qoffea-backend-c26brvbilq-et.a.run.app/api";
 ```
 
 Then redeploy frontend:
+
 ```bash
 gcloud storage cp "Frontend-Qoffea/js/app.js" gs://qoffea-frontend-7133/js/
 ```
@@ -753,18 +773,21 @@ When user asks about Qoffea deployment:
 
 1. **Project Context:** This is a production Flask + YOLO AI application deployed on GCP
 2. **Key Facts:**
+
    - Backend: Cloud Run (stateless, ephemeral storage)
    - Frontend: Cloud Storage + Load Balancer
    - No database (by design - privacy focused)
    - Uploaded images are temporary (container lifetime only)
 
 3. **Common Issues:**
+
    - Browser cache → Solution: Hard refresh (Ctrl+Shift+R)
    - Image not showing → Check API_BASE_URL in app.js
    - Backend timeout → Increase timeout or memory
    - SSL provisioning → Wait 15-60 minutes
 
 4. **Don't suggest:**
+
    - Persistent storage for uploads (intentional design)
    - Database setup (not in scope)
    - Changing to other cloud providers (already GCP)
@@ -790,6 +813,7 @@ When user asks about Qoffea deployment:
 ## 📝 Change Log
 
 ### November 3, 2025
+
 - ✅ Initial deployment to Google Cloud
 - ✅ Backend deployed to Cloud Run with YOLO model
 - ✅ Frontend deployed to Cloud Storage
