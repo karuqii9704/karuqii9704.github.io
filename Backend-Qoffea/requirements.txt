@@ -1,34 +1,30 @@
-# Core Dependencies
-flask==3.0.0
-flask-cors==4.0.0
-
-# Machine Learning & Computer Vision
-ultralytics==8.3.0
-torch>=2.0.0
-torchvision>=0.15.0
-opencv-python==4.10.0.84
-pillow==10.4.0
-numpy==1.26.4
-
-# PDF Generation
-reportlab==4.0.7
-
-# Image Processing
-python-multipart==0.0.9
-
-# API & Web
+# Core Dependencies - Web Framework
+flask==3.0.3
+flask-cors==4.0.1
 werkzeug==3.0.3
 
-# Utilities
-python-dotenv==1.0.0
-pyyaml==6.0.1
+# Machine Learning & Computer Vision
+# Compatible with model trained on Ultralytics 8.3.221
+ultralytics>=8.3.0
+torch>=2.5.0
+torchvision>=0.20.0
+opencv-python==4.10.0.84
+pillow==10.4.0
+numpy>=1.23.0,<2.0.0
 
 # PDF Generation
-reportlab==4.0.7
+reportlab==4.2.5
 
-# Testing
-requests==2.31.0
+# Image Processing & File Handling
+python-multipart==0.0.12
 
-# Optional: untuk production
+# Utilities
+python-dotenv==1.0.1
+pyyaml==6.0.2
+
+# HTTP Requests for Testing
+requests==2.32.3
+
+# Optional: untuk production deployment
 # gunicorn==21.2.0
 # waitress==3.0.0

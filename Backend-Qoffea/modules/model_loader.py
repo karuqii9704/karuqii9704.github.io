@@ -6,6 +6,41 @@ Handles loading and managing the YOLO AI model
 from ultralytics import YOLO
 import torch
 from pathlib import Path
+import os
+
+# Configure PyTorch to allow loading custom model architectures
+# This is safe for trusted model files from Ultralytics
+os.environ['PYTORCH_ENABLE_MPS_FALLBACK'] = '1'
+
+# Add safe globals for PyTorch 2.6+ compatibility
+try:
+    # Register Ultralytics classes as safe globals for torch.load
+    from ultralytics.nn.tasks import DetectionModel, SegmentationModel, ClassificationModel, PoseModel, OBBModel
+    from ultralytics.nn import modules
+    
+    if hasattr(torch.serialization, 'add_safe_globals'):
+        # Add all necessary Ultralytics classes
+        safe_classes = [
+            DetectionModel,
+            SegmentationModel, 
+            ClassificationModel,
+            PoseModel,
+            OBBModel,
+        ]
+        
+        # Add common nn.modules classes
+        for module_name in dir(modules):
+            if not module_name.startswith('_'):
+                module_obj = getattr(modules, module_name)
+                if isinstance(module_obj, type):
+                    safe_classes.append(module_obj)
+        
+        torch.serialization.add_safe_globals(safe_classes)
+        print("✅ Registered Ultralytics safe globals for PyTorch")
+except Exception as e:
+    print(f"⚠️ Warning: Could not register all safe globals: {e}")
+    # Fallback: set environment to allow all torch.load operations
+    os.environ['TORCH_FORCE_WEIGHTS_ONLY_LOAD'] = '0'
 
 
 class ModelLoader:
