@@ -173,36 +173,77 @@ class PDFGenerator:
         story.append(Spacer(1, 0.35*inch))
         
         # Summary Section Title
-        summary_title = Paragraph("Analysis Summary", self.styles['SectionTitle'])
+        summary_title = Paragraph("Hasil Klasifikasi", self.styles['SectionTitle'])
         story.append(summary_title)
         story.append(Spacer(1, 0.15*inch))
         
-        # Summary Table
-        summary_data = [
-            ['Metric', 'Value'],
-            ['Total Beans Detected', str(analysis_result['total_beans'])],
-            ['Good Beans', f"{analysis_result['good_beans']} ({analysis_result['good_percentage']}%)"],
-            ['Defect Beans', f"{analysis_result['defect_beans']} ({analysis_result['defect_percentage']}%)"],
+        # Statistics Cards (like web display)
+        stats_data = [
+            ['Total Biji:', 'Biji Baik:', 'Biji Cacat:'],
+            [
+                str(analysis_result['total_beans']),
+                str(analysis_result['good_beans']),
+                str(analysis_result['defect_beans'])
+            ]
         ]
         
-        summary_table = Table(summary_data, colWidths=[3.25*inch, 3.25*inch])
-        summary_table.setStyle(TableStyle([
+        stats_table = Table(stats_data, colWidths=[2.15*inch, 2.15*inch, 2.15*inch])
+        stats_table.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#8B7355')),
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+            ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+            ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+            ('FONTNAME', (0, 1), (-1, 1), 'Helvetica-Bold'),
+            ('FONTSIZE', (0, 0), (-1, 0), 11),
+            ('FONTSIZE', (0, 1), (-1, 1), 24),
+            ('TOPPADDING', (0, 0), (-1, -1), 12),
+            ('BOTTOMPADDING', (0, 0), (-1, -1), 12),
+            ('BACKGROUND', (0, 1), (0, 1), colors.Color(0.95, 0.95, 0.93)),
+            ('BACKGROUND', (1, 1), (1, 1), colors.Color(0.85, 0.95, 0.85)),
+            ('BACKGROUND', (2, 1), (2, 1), colors.Color(0.95, 0.85, 0.85)),
+            ('TEXTCOLOR', (1, 1), (1, 1), colors.HexColor('#28a745')),
+            ('TEXTCOLOR', (2, 1), (2, 1), colors.HexColor('#dc3545')),
+            ('GRID', (0, 0), (-1, -1), 1.5, colors.HexColor('#8B7355')),
+        ]))
+        
+        story.append(stats_table)
+        story.append(Spacer(1, 0.3*inch))
+        
+        # Percentage Section
+        percentage_title = Paragraph("Persentase Kualitas Biji Kopi:", self.styles['SectionTitle'])
+        story.append(percentage_title)
+        story.append(Spacer(1, 0.15*inch))
+        
+        # Percentage display
+        perc_data = [
+            ['Kategori', 'Persentase'],
+            ['Baik (Specialty)', f"{analysis_result['good_percentage']:.1f}%"],
+            ['Cacat (Defect)', f"{analysis_result['defect_percentage']:.1f}%"]
+        ]
+        
+        perc_table = Table(perc_data, colWidths=[3.25*inch, 3.25*inch])
+        perc_table.setStyle(TableStyle([
             ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#6F4E37')),
             ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
             ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
             ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
             ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+            ('FONTNAME', (0, 1), (-1, -1), 'Helvetica-Bold'),
             ('FONTSIZE', (0, 0), (-1, 0), 12),
-            ('FONTSIZE', (0, 1), (-1, -1), 11),
-            ('TOPPADDING', (0, 0), (-1, -1), 10),
-            ('BOTTOMPADDING', (0, 0), (-1, -1), 10),
-            ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+            ('FONTSIZE', (0, 1), (-1, -1), 16),
+            ('TOPPADDING', (0, 0), (-1, -1), 12),
+            ('BOTTOMPADDING', (0, 0), (-1, -1), 12),
+            ('BACKGROUND', (1, 1), (1, 1), colors.Color(0.85, 0.95, 0.85)),
+            ('BACKGROUND', (1, 2), (1, 2), colors.Color(0.95, 0.85, 0.85)),
+            ('TEXTCOLOR', (1, 1), (1, 1), colors.HexColor('#28a745')),
+            ('TEXTCOLOR', (1, 2), (1, 2), colors.HexColor('#dc3545')),
             ('GRID', (0, 0), (-1, -1), 1, colors.black),
-            ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.beige, colors.Color(0.95, 0.95, 0.9)])
+            ('ROWBACKGROUNDS', (0, 1), (0, -1), [colors.beige, colors.Color(0.95, 0.95, 0.9)])
         ]))
         
-        story.append(summary_table)
-        story.append(Spacer(1, 0.45*inch))
+        story.append(perc_table)
+        story.append(Spacer(1, 0.4*inch))
         
         # Images Section
         if abs_annotated_path and os.path.exists(abs_annotated_path):
@@ -218,42 +259,31 @@ class PDFGenerator:
             story.append(img)
             story.append(Spacer(1, 0.35*inch))
         
-        # Detection Details
-        if 'detections' in analysis_result and len(analysis_result['detections']) > 0:
-            # Add page break if needed
-            if len(analysis_result['detections']) > 15:
-                story.append(PageBreak())
-            
-            details_title = Paragraph("Detection Details", self.styles['SectionTitle'])
-            story.append(details_title)
-            story.append(Spacer(1, 0.15*inch))
-            
-            # Create detection table
-            det_data = [['#', 'Class', 'Confidence']]
-            for idx, det in enumerate(analysis_result['detections'][:30], 1):  # Limit to 30
-                det_data.append([
-                    str(idx),
-                    det['class_name'],
-                    f"{det['confidence']:.2%}"
-                ])
-            
-            det_table = Table(det_data, colWidths=[0.6*inch, 3.7*inch, 2.2*inch])
-            det_table.setStyle(TableStyle([
-                ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#6F4E37')),
-                ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
-                ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
-                ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
-                ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-                ('FONTSIZE', (0, 0), (-1, 0), 11),
-                ('FONTSIZE', (0, 1), (-1, -1), 9),
-                ('TOPPADDING', (0, 0), (-1, -1), 6),
-                ('BOTTOMPADDING', (0, 0), (-1, -1), 6),
-                ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
-                ('GRID', (0, 0), (-1, -1), 0.5, colors.grey),
-                ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.beige, colors.Color(0.95, 0.95, 0.9)])
-            ]))
-            
-            story.append(det_table)
+        # Mutu Keseluruhan Section
+        quality_title = Paragraph("Mutu Keseluruhan:", self.styles['SectionTitle'])
+        story.append(quality_title)
+        story.append(Spacer(1, 0.15*inch))
+        
+        # Large grade display
+        grade_display_style = ParagraphStyle(
+            name='GradeDisplay',
+            fontSize=72,
+            textColor=grade_color,
+            alignment=TA_CENTER,
+            spaceAfter=15,
+            spaceBefore=10,
+            fontName='Helvetica-Bold'
+        )
+        
+        grade_display = Paragraph(f"<b>{grade}</b>", grade_display_style)
+        story.append(grade_display)
+        story.append(Spacer(1, 0.2*inch))
+        
+        # Description
+        desc_title = Paragraph("Deskripsi:", self.styles['SectionTitle'])
+        story.append(desc_title)
+        desc_para = Paragraph(grade_desc, self.styles['Normal'])
+        story.append(desc_para)
         
         # Footer
         story.append(Spacer(1, 0.5*inch))
