@@ -14,7 +14,7 @@ class Config:
     BASE_DIR = os.path.abspath(os.path.dirname(__file__))
     # Hugging Face Model Configuration
     HF_MODEL_REPO = os.getenv('HF_MODEL_REPO', 'rakaval/Qoffea_2')
-    HF_MODEL_FILE = os.getenv('HF_MODEL_FILE', 'best.pt')  # nama file model di repo
+    HF_MODEL_FILE = os.getenv('HF_MODEL_FILE', 'best_2.pt')  # nama file model di repo
     MODEL_CACHE_DIR = os.getenv('MODEL_CACHE_DIR', os.path.join(BASE_DIR, 'model_cache'))
     CONFIDENCE_THRESHOLD = float(os.getenv('CONFIDENCE_THRESHOLD', 0.5))
     
