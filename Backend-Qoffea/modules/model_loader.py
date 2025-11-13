@@ -82,20 +82,34 @@ class ModelLoader:
                 # Try to download as a Space first, then as a Model repo if that fails
                 model_path = None
                 
-                try:
-                    # Try downloading from Space
-                    print(f"   Attempting to download from Space...")
-                    model_path = hf_hub_download(
-                        repo_id=model_repo,
-                        filename=model_file,
-                        cache_dir=cache_dir,
-                        repo_type="space"
-                    )
-                except Exception as space_error:
-                    print(f"   Space download failed: {space_error}")
+                # Common paths in Spaces where model files might be located
+                possible_paths = [
+                    model_file,  # Root directory (e.g., 'best.pt')
+                    f"models/{model_file}",  # Common models subfolder
+                    f"model/{model_file}",  # Singular models folder
+                    f"weights/{model_file}",  # Weights folder
+                ]
+                
+                # Try downloading from Space with different paths
+                for file_path in possible_paths:
+                    try:
+                        print(f"   Attempting to download from Space: {file_path}...")
+                        model_path = hf_hub_download(
+                            repo_id=model_repo,
+                            filename=file_path,
+                            cache_dir=cache_dir,
+                            repo_type="space"
+                        )
+                        print(f"   ✓ Found at: {file_path}")
+                        break
+                    except Exception as space_error:
+                        print(f"   ✗ Not found at: {file_path}")
+                        continue
+                
+                # If Space download failed, try Model repository
+                if not model_path:
                     print(f"   Attempting to download from Model repository...")
                     try:
-                        # Try downloading from Model repository
                         model_path = hf_hub_download(
                             repo_id=model_repo,
                             filename=model_file,
