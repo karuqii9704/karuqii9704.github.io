@@ -27,7 +27,7 @@
 ### Tech Stack:
 
 - **Backend:** Flask 3.0.3 + Python 3.11
-- **ML Model:** Ultralytics YOLO v8 (Hugging Face: rakaval/coffea)
+- **ML Model:** Ultralytics YOLO v8 (Hugging Face: rakaval/Qoffea_2)
 - **Frontend:** HTML/CSS/JavaScript (Vanilla)
 - **Cloud:** Google Cloud Platform
   - Cloud Run (Backend API)
@@ -116,7 +116,7 @@ Concurrency: 80 (default)
 
 ```bash
 FLASK_ENV=production
-HF_MODEL_REPO=rakaval/coffea
+HF_MODEL_REPO=rakaval/Qoffea_2
 HF_MODEL_FILE=best.pt
 CONFIDENCE_THRESHOLD=0.5
 ```
@@ -261,7 +261,7 @@ Region: Global
                                                       ▼
                                            ┌──────────────────────┐
                                            │   Hugging Face Hub   │
-                                           │   rakaval/coffea     │
+                                           │   rakaval/Qoffea_2     │
                                            │   Model: best.pt     │
                                            └──────────────────────┘
 ```
@@ -302,7 +302,7 @@ gcloud run deploy qoffea-backend \
   --cpu 2 \
   --timeout 300 \
   --max-instances 3 \
-  --set-env-vars "FLASK_ENV=production,HF_MODEL_REPO=rakaval/coffea,HF_MODEL_FILE=best.pt,CONFIDENCE_THRESHOLD=0.5"
+  --set-env-vars "FLASK_ENV=production,HF_MODEL_REPO=rakaval/Qoffea_2,HF_MODEL_FILE=best.pt,CONFIDENCE_THRESHOLD=0.5"
 
 # Update environment variable only
 gcloud run services update qoffea-backend \
@@ -804,7 +804,7 @@ When user asks about Qoffea deployment:
 
 - **GCP Cloud Run Documentation:** https://cloud.google.com/run/docs
 - **GCP Cloud Storage:** https://cloud.google.com/storage/docs
-- **Hugging Face Hub:** https://huggingface.co/rakaval/coffea
+- **Hugging Face Hub:** https://huggingface.co/rakaval/Qoffea_2
 - **Ultralytics YOLO:** https://docs.ultralytics.com/
 - **Flask Documentation:** https://flask.palletsprojects.com/
 
@@ -836,3 +836,4 @@ When user asks about Qoffea deployment:
 **🎉 Deployment Status: PRODUCTION - FULLY OPERATIONAL ✅**
 
 Last verified: November 3, 2025
+

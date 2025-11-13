@@ -65,7 +65,7 @@ class ModelLoader:
         Load YOLO model from Hugging Face repository
         
         Args:
-            model_repo: Hugging Face repository ID (e.g., 'rakaval/coffea')
+            model_repo: Hugging Face repository ID (e.g., 'rakaval/Qoffea_2')
             model_file: Name of the model file in the repository (e.g., 'best.pt')
             cache_dir: Directory to cache the downloaded model
             confidence: Confidence threshold for predictions

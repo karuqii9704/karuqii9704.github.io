@@ -6,7 +6,7 @@ Backend Qoffea sekarang menggunakan model yang dioptimalkan dari Hugging Face re
 
 ### Repository Model
 
-- **Repository**: [rakaval/coffea](https://huggingface.co/spaces/rakaval/coffea)
+- **Repository**: [rakaval/Qoffea_2](https://huggingface.co/spaces/rakaval/Qoffea_2)
 - **Type**: Hugging Face Space
 - **Model File**: `best.pt`
 
@@ -32,7 +32,7 @@ Buat file `.env` berdasarkan `.env.example`:
 
 ```env
 # Hugging Face Model Configuration
-HF_MODEL_REPO=rakaval/coffea
+HF_MODEL_REPO=rakaval/Qoffea_2
 HF_MODEL_FILE=best.pt
 MODEL_CACHE_DIR=model_cache
 CONFIDENCE_THRESHOLD=0.5
@@ -55,9 +55,9 @@ Output yang diharapkan:
 
 ```
 🚀 Initializing Qoffea Backend...
-📥 Loading model from Hugging Face: rakaval/coffea
+📥 Loading model from Hugging Face: rakaval/Qoffea_2
 🔍 Downloading model from Hugging Face...
-   Repository: rakaval/coffea
+   Repository: rakaval/Qoffea_2
    File: best.pt
 ✅ Model downloaded to: [cache_path]
 📦 Loading model...
@@ -80,7 +80,7 @@ Output yang diharapkan:
 **Solusi**:
 
 1. Pastikan koneksi internet stabil
-2. Verifikasi nama repository benar: `rakaval/coffea`
+2. Verifikasi nama repository benar: `rakaval/Qoffea_2`
 3. Pastikan file `best.pt` ada di repository
 4. Cek permission/access ke Hugging Face Space
 

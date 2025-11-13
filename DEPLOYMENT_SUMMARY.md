@@ -92,7 +92,7 @@ Configuration:
   Concurrency: 80 (default)
 Environment Variables:
   FLASK_ENV: production
-  HF_MODEL_REPO: rakaval/coffea
+  HF_MODEL_REPO: rakaval/Qoffea_2
   HF_MODEL_FILE: best.pt
   CONFIDENCE_THRESHOLD: 0.5
 Features:
@@ -546,3 +546,4 @@ Your Qoffea application is now live on Google Cloud Platform!
 **Last Updated:** November 3, 2025  
 **Project:** qoffea-backend-7133  
 **Team:** Qoffea Development Team
+

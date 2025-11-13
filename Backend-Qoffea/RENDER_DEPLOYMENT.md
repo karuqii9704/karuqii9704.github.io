@@ -44,7 +44,7 @@ HOST=0.0.0.0
 PORT=10000
 
 # Hugging Face Model
-HF_MODEL_REPO=rakaval/coffea
+HF_MODEL_REPO=rakaval/Qoffea_2
 HF_MODEL_FILE=best.pt
 MODEL_CACHE_DIR=/opt/render/project/src/model_cache
 CONFIDENCE_THRESHOLD=0.5

@@ -87,7 +87,7 @@ gcloud run deploy qoffea-backend \
   --cpu 2 \
   --timeout 300 \
   --max-instances 3 \
-  --set-env-vars "FLASK_ENV=production,HF_MODEL_REPO=rakaval/coffea,HF_MODEL_FILE=best.pt,CONFIDENCE_THRESHOLD=0.5"
+  --set-env-vars "FLASK_ENV=production,HF_MODEL_REPO=rakaval/Qoffea_2,HF_MODEL_FILE=best.pt,CONFIDENCE_THRESHOLD=0.5"
 ```
 
 **Atau build Docker image terlebih dahulu:**
@@ -131,7 +131,7 @@ gcloud run services update qoffea-backend \
   --set-env-vars "
     FLASK_ENV=production,
     FLASK_DEBUG=0,
-    HF_MODEL_REPO=rakaval/coffea,
+    HF_MODEL_REPO=rakaval/Qoffea_2,
     HF_MODEL_FILE=best.pt,
     MODEL_CACHE_DIR=/tmp/model_cache,
     CONFIDENCE_THRESHOLD=0.5,

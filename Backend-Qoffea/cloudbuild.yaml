@@ -33,7 +33,7 @@ steps:
       - "--max-instances"
       - "3"
       - "--set-env-vars"
-      - "FLASK_ENV=production,HF_MODEL_REPO=rakaval/coffea,HF_MODEL_FILE=best.pt"
+      - "FLASK_ENV=production,HF_MODEL_REPO=rakaval/Qoffea_2,HF_MODEL_FILE=best.pt"
 
 images:
   - "gcr.io/$PROJECT_ID/qoffea-backend:$COMMIT_SHA"

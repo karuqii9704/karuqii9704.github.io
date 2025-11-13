@@ -414,7 +414,7 @@ gcloud run services describe qoffea-backend \
   --format="value(spec.template.spec.containers[0].env)"
 
 # Check if Hugging Face repo accessible
-# Test manually: https://huggingface.co/rakaval/coffea
+# Test manually: https://huggingface.co/rakaval/Qoffea_2
 ```
 
 ### Frontend Issues
@@ -702,3 +702,4 @@ gcloud run services update qoffea-backend \
 **Last Updated:** November 3, 2025
 **Maintained by:** Qoffea Team
 **Project:** qoffea-backend-7133
+

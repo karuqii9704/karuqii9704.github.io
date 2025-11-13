@@ -24,7 +24,7 @@ resources:
 env_variables:
   FLASK_ENV: "production"
   FLASK_DEBUG: "0"
-  HF_MODEL_REPO: "rakaval/coffea"
+  HF_MODEL_REPO: "rakaval/Qoffea_2"
   HF_MODEL_FILE: "best.pt"
   CONFIDENCE_THRESHOLD: "0.5"
 
