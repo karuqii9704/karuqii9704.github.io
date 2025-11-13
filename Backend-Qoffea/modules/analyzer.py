@@ -52,7 +52,6 @@ class CoffeeAnalyzer:
                 'defect_beans': 0,
                 'good_percentage': 0,
                 'defect_percentage': 0,
-                'grade': 'N/A',
                 'detections': []
             }
         
@@ -93,9 +92,6 @@ class CoffeeAnalyzer:
         good_percentage = (good_count / total_beans * 100) if total_beans > 0 else 0
         defect_percentage = (defect_count / total_beans * 100) if total_beans > 0 else 0
         
-        # Determine overall grade
-        grade = self._calculate_grade(good_percentage)
-        
         return {
             'success': True,
             'total_beans': total_beans,
@@ -103,41 +99,6 @@ class CoffeeAnalyzer:
             'defect_beans': defect_count,
             'good_percentage': round(good_percentage, 2),
             'defect_percentage': round(defect_percentage, 2),
-            'grade': grade,
             'detections': detections,
             'class_names': class_names
         }
-    
-    def _calculate_grade(self, good_percentage: float) -> str:
-        """
-        Calculate overall grade based on good percentage
-        
-        Args:
-            good_percentage: Percentage of good beans
-            
-        Returns:
-            Grade (A, B, or C)
-        """
-        if good_percentage >= 85:
-            return 'A'
-        elif good_percentage >= 70:
-            return 'B'
-        else:
-            return 'C'
-    
-    def get_grade_description(self, grade: str) -> str:
-        """
-        Get description for grade
-        
-        Args:
-            grade: Grade letter (A, B, or C)
-            
-        Returns:
-            Description text
-        """
-        descriptions = {
-            'A': 'Excellent quality - Very low defect rate, suitable for specialty coffee',
-            'B': 'Good quality - Acceptable for commercial grade coffee',
-            'C': 'Fair quality - Higher defect rate, may require additional sorting'
-        }
-        return descriptions.get(grade, 'No description available')

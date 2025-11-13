@@ -66,6 +66,10 @@ def upload_image():
         iou_threshold = float(iou_threshold)
         max_detections = int(max_detections)
         
+        # Enforce minimum confidence threshold of 0.65
+        if confidence < 0.65:
+            confidence = 0.65
+        
         # Save uploaded file
         filename, filepath = FileHandler.save_upload(file, Config.UPLOAD_FOLDER)
         
@@ -115,8 +119,6 @@ def upload_image():
                 'defect_beans': analysis_result['defect_beans'],
                 'good_percentage': analysis_result['good_percentage'],
                 'defect_percentage': analysis_result['defect_percentage'],
-                'grade': analysis_result['grade'],
-                'grade_description': analyzer.get_grade_description(analysis_result['grade']),
                 'confidence_threshold': confidence,
                 'iou_threshold': iou_threshold,
                 'max_detections': max_detections
@@ -161,12 +163,14 @@ def get_analysis(analysis_id):
         
         filepath = os.path.abspath(os.path.join(abs_upload_folder, image_files[0]))
         
-        # Get confidence from query params
+        # Get detection parameters from query params
         confidence = float(request.args.get('confidence', Config.CONFIDENCE_THRESHOLD))
+        iou = float(request.args.get('iou', Config.IOU_THRESHOLD))
+        max_det = int(request.args.get('max_det', Config.MAX_DETECTIONS))
         
-        # Re-analyze
+        # Re-analyze with all NMS parameters
         analyzer = CoffeeAnalyzer(model_loader)
-        analysis_result = analyzer.analyze_image(filepath, confidence)
+        analysis_result = analyzer.analyze_image(filepath, confidence, iou, max_det)
         
         return jsonify(analysis_result), 200
         

@@ -42,9 +42,14 @@ def download_report(analysis_id):
         filepath = os.path.abspath(os.path.join(abs_upload_folder, image_files[0]))
         annotated_path = os.path.abspath(os.path.join(abs_upload_folder, f"annotated_{image_files[0]}"))
         
-        # Re-analyze to get fresh data
+        # Re-analyze to get fresh data with all NMS parameters
         analyzer = CoffeeAnalyzer(model_loader)
-        analysis_result = analyzer.analyze_image(filepath, Config.CONFIDENCE_THRESHOLD)
+        analysis_result = analyzer.analyze_image(
+            filepath, 
+            Config.CONFIDENCE_THRESHOLD,
+            Config.IOU_THRESHOLD,
+            Config.MAX_DETECTIONS
+        )
         
         # Generate PDF report
         from modules.pdf_generator import PDFGenerator
