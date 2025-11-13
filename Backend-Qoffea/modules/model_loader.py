@@ -61,7 +61,7 @@ class ModelLoader:
             print(f"🔧 Using device: {self.device}")
     
     def load_model(self, model_repo: str = None, model_file: str = None, cache_dir: str = None, 
-                   confidence: float = 0.6, iou: float = 0.45, max_det: int = 300):
+                   confidence: float = 0.65, iou: float = 0.40, max_det: int = 300):
         """
         Load YOLO model from Hugging Face repository
         
@@ -69,8 +69,8 @@ class ModelLoader:
             model_repo: Hugging Face repository ID (e.g., 'rakaval/Qoffea_2')
             model_file: Name of the model file in the repository (e.g., 'best.pt')
             cache_dir: Directory to cache the downloaded model
-            confidence: Confidence threshold for predictions (default: 0.6)
-            iou: IoU threshold for NMS to eliminate overlapping boxes (default: 0.45)
+            confidence: Confidence threshold for predictions (default: 0.65)
+            iou: IoU threshold for NMS to eliminate overlapping boxes (default: 0.40)
             max_det: Maximum number of detections per image (default: 300)
             
         Returns:
