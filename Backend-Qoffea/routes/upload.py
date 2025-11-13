@@ -49,8 +49,11 @@ def upload_image():
                 'error': message
             }), 400
         
-        # Get confidence threshold (optional)
+        # Get detection parameters (optional overrides)
         confidence = request.form.get('confidence', Config.CONFIDENCE_THRESHOLD)
+        iou_threshold = request.form.get('iou', Config.IOU_THRESHOLD)
+        max_detections = request.form.get('max_det', Config.MAX_DETECTIONS)
+        
         is_valid_conf, conf_msg = Validator.validate_confidence(confidence)
         
         if not is_valid_conf:
@@ -60,6 +63,8 @@ def upload_image():
             }), 400
         
         confidence = float(confidence)
+        iou_threshold = float(iou_threshold)
+        max_detections = int(max_detections)
         
         # Save uploaded file
         filename, filepath = FileHandler.save_upload(file, Config.UPLOAD_FOLDER)
@@ -78,9 +83,9 @@ def upload_image():
         # Get image info
         image_info = ImageProcessor.get_image_info(abs_filepath)
         
-        # Analyze image
+        # Analyze image with all NMS parameters
         analyzer = CoffeeAnalyzer(model_loader)
-        analysis_result = analyzer.analyze_image(abs_filepath, confidence)
+        analysis_result = analyzer.analyze_image(abs_filepath, confidence, iou_threshold, max_detections)
         
         if not analysis_result['success']:
             FileHandler.delete_file(filepath)
@@ -91,9 +96,9 @@ def upload_image():
         abs_upload_folder = os.path.abspath(Config.UPLOAD_FOLDER)
         annotated_path = os.path.abspath(os.path.join(abs_upload_folder, annotated_filename))
         
-        # Get results for drawing
+        # Get results for drawing with all detection parameters
         from modules.model_loader import ModelLoader
-        results = model_loader.predict(abs_filepath, conf=confidence)
+        results = model_loader.predict(abs_filepath, conf=confidence, iou=iou_threshold, max_det=max_detections)
         ImageProcessor.draw_detections(abs_filepath, results, annotated_path)
         
         # Prepare response
@@ -112,7 +117,9 @@ def upload_image():
                 'defect_percentage': analysis_result['defect_percentage'],
                 'grade': analysis_result['grade'],
                 'grade_description': analyzer.get_grade_description(analysis_result['grade']),
-                'confidence_threshold': confidence
+                'confidence_threshold': confidence,
+                'iou_threshold': iou_threshold,
+                'max_detections': max_detections
             },
             'detections_count': len(analysis_result.get('detections', []))
         }

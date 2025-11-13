@@ -18,19 +18,21 @@ class CoffeeAnalyzer:
         """
         self.model_loader = model_loader
     
-    def analyze_image(self, image_path: str, confidence: float = 0.5) -> Dict:
+    def analyze_image(self, image_path: str, confidence: float = 0.65, iou: float = 0.40, max_det: int = 300) -> Dict:
         """
         Analyze coffee beans in image
         
         Args:
             image_path: Path to image file
-            confidence: Confidence threshold
+            confidence: Confidence threshold (default: 0.65)
+            iou: IoU threshold for NMS (default: 0.40)
+            max_det: Maximum detections per image (default: 300)
             
         Returns:
             Dictionary with analysis results
         """
-        # Run prediction
-        results = self.model_loader.predict(image_path, conf=confidence)
+        # Run prediction with all NMS parameters
+        results = self.model_loader.predict(image_path, conf=confidence, iou=iou, max_det=max_det)
         
         if len(results) == 0:
             return {
