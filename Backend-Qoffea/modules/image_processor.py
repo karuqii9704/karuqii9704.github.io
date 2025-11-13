@@ -82,7 +82,7 @@ class ImageProcessor:
     @staticmethod
     def draw_detections(image_path: str, results, output_path: str) -> str:
         """
-        Draw detection boxes on image
+        Draw detection boxes on image with different colors for each class
         
         Args:
             image_path: Path to original image
@@ -94,6 +94,18 @@ class ImageProcessor:
         """
         # Read original image
         img = cv2.imread(image_path)
+        
+        # Define colors for each class (BGR format)
+        class_colors = {
+            'Specialty': (0, 255, 0),      # Green - Good quality
+            'specialty': (0, 255, 0),      # Green - Good quality (lowercase)
+            'good': (0, 255, 0),           # Green - Good quality
+            'Defect': (0, 0, 255),         # Red - Bad quality
+            'defect': (0, 0, 255),         # Red - Bad quality (lowercase)
+            'break': (0, 0, 255),          # Red - Bad quality
+            'coffee-grade-good': (0, 255, 0),   # Green - Old model
+            'coffee-grade-break': (0, 0, 255),  # Red - Old model
+        }
         
         if len(results) > 0 and results[0].boxes is not None:
             # Get boxes, classes, and confidences
@@ -108,13 +120,22 @@ class ImageProcessor:
                 class_name = names[int(cls)]
                 label = f"{class_name} {conf:.2f}"
                 
-                # Choose color based on class
-                color = (0, 255, 0) if 'good' in class_name.lower() else (0, 0, 255)
+                # Get color for this class (default to blue if not found)
+                color = class_colors.get(class_name, (255, 0, 0))
                 
-                # Draw rectangle and label
-                cv2.rectangle(img, (x1, y1), (x2, y2), color, 2)
-                cv2.putText(img, label, (x1, y1 - 10), 
-                           cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
+                # Draw rectangle with thicker border
+                cv2.rectangle(img, (x1, y1), (x2, y2), color, 3)
+                
+                # Draw label background
+                label_size, baseline = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.6, 2)
+                y1_label = max(y1, label_size[1] + 10)
+                cv2.rectangle(img, (x1, y1_label - label_size[1] - 10), 
+                            (x1 + label_size[0], y1_label + baseline - 10), 
+                            color, -1)
+                
+                # Draw label text
+                cv2.putText(img, label, (x1, y1_label - 7), 
+                           cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
         
         # Save annotated image
         cv2.imwrite(output_path, img)
