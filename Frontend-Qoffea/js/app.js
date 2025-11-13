@@ -327,21 +327,8 @@ async function uploadAndAnalyze(file) {
 function displayResults(result) {
     const analysis = result.analysis;
     
-    // Update overall grade
-    const gradeElement = document.querySelector('.overall-grade-box__grade');
-    if (gradeElement) {
-        gradeElement.textContent = analysis.grade;
-        gradeElement.className = 'overall-grade-box__grade grade-' + analysis.grade.toLowerCase();
-    }
-    
     // Update percentages
     updatePercentageDisplay(analysis);
-    
-    // Update description
-    const descElement = document.querySelector('.results-section__desc-text');
-    if (descElement) {
-        descElement.textContent = analysis.grade_description;
-    }
     
     // Update statistics
     updateStatistics(analysis);
