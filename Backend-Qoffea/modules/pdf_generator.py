@@ -6,12 +6,64 @@ Generates PDF reports for coffee bean analysis
 from reportlab.lib.pagesizes import letter, A4
 from reportlab.lib import colors
 from reportlab.lib.units import inch
-from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer, Image as RLImage, PageBreak
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer, Image as RLImage, PageBreak, Flowable
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_RIGHT
+from reportlab.graphics.shapes import Drawing, Rect, String
+from reportlab.graphics import renderPDF
 from datetime import datetime
 from PIL import Image
 import os
+
+
+class PercentageBarChart(Flowable):
+    """Custom flowable for drawing percentage bar chart"""
+    
+    def __init__(self, good_percentage, defect_percentage, width=400, height=300):
+        Flowable.__init__(self)
+        self.good_percentage = good_percentage
+        self.defect_percentage = defect_percentage
+        self.width = width
+        self.height = height
+    
+    def draw(self):
+        """Draw the bar chart"""
+        canvas = self.canv
+        
+        # Bar dimensions
+        bar_width = 80
+        bar_x = self.width / 2 - bar_width / 2
+        bar_bottom = 20
+        max_bar_height = self.height - 80
+        
+        # Calculate heights based on percentage
+        good_height = (self.good_percentage / 100) * max_bar_height
+        defect_height = (self.defect_percentage / 100) * max_bar_height
+        
+        # Draw defect bar (top, red)
+        if defect_height > 0:
+            canvas.setFillColor(colors.HexColor('#dc3545'))
+            canvas.rect(bar_x, bar_bottom + good_height, bar_width, defect_height, fill=1, stroke=0)
+        
+        # Draw good bar (bottom, green)
+        if good_height > 0:
+            canvas.setFillColor(colors.HexColor('#28a745'))
+            canvas.rect(bar_x, bar_bottom, bar_width, good_height, fill=1, stroke=0)
+        
+        # Draw labels on the left
+        canvas.setFillColor(colors.black)
+        canvas.setFont('Helvetica-Bold', 12)
+        
+        # Good label
+        canvas.setFillColor(colors.HexColor('#28a745'))
+        canvas.drawString(bar_x - 120, bar_bottom + good_height / 2 - 5, 'Baik')
+        canvas.drawString(bar_x - 120, bar_bottom + good_height / 2 - 20, f'{self.good_percentage:.1f}%')
+        
+        # Defect label
+        canvas.setFillColor(colors.HexColor('#dc3545'))
+        defect_y = bar_bottom + good_height + defect_height / 2
+        canvas.drawString(bar_x - 120, defect_y - 5, 'Cacat')
+        canvas.drawString(bar_x - 120, defect_y - 20, f'{self.defect_percentage:.1f}%')
 
 
 class PDFGenerator:
@@ -208,41 +260,52 @@ class PDFGenerator:
         ]))
         
         story.append(stats_table)
-        story.append(Spacer(1, 0.3*inch))
+        story.append(Spacer(1, 0.4*inch))
         
-        # Percentage Section
+        # Percentage Section with Bar Chart
         percentage_title = Paragraph("Persentase Kualitas Biji Kopi:", self.styles['SectionTitle'])
         story.append(percentage_title)
-        story.append(Spacer(1, 0.15*inch))
+        story.append(Spacer(1, 0.2*inch))
         
-        # Percentage display
-        perc_data = [
-            ['Kategori', 'Persentase'],
-            ['Baik (Specialty)', f"{analysis_result['good_percentage']:.1f}%"],
-            ['Cacat (Defect)', f"{analysis_result['defect_percentage']:.1f}%"]
+        # Create a table with bar chart on left and percentages on right
+        # Bar chart
+        bar_chart = PercentageBarChart(
+            analysis_result['good_percentage'],
+            analysis_result['defect_percentage'],
+            width=200,
+            height=200
+        )
+        
+        # Percentage labels for right side
+        perc_labels = [
+            ['Baik', f"{analysis_result['good_percentage']:.1f}%"],
+            ['Cacat', f"{analysis_result['defect_percentage']:.1f}%"]
         ]
         
-        perc_table = Table(perc_data, colWidths=[3.25*inch, 3.25*inch])
-        perc_table.setStyle(TableStyle([
-            ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#6F4E37')),
-            ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
-            ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+        perc_label_table = Table(perc_labels, colWidths=[1.5*inch, 1.5*inch])
+        perc_label_table.setStyle(TableStyle([
+            ('ALIGN', (0, 0), (0, -1), 'LEFT'),
+            ('ALIGN', (1, 0), (1, -1), 'RIGHT'),
             ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
-            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-            ('FONTNAME', (0, 1), (-1, -1), 'Helvetica-Bold'),
-            ('FONTSIZE', (0, 0), (-1, 0), 12),
-            ('FONTSIZE', (0, 1), (-1, -1), 16),
-            ('TOPPADDING', (0, 0), (-1, -1), 12),
-            ('BOTTOMPADDING', (0, 0), (-1, -1), 12),
-            ('BACKGROUND', (1, 1), (1, 1), colors.Color(0.85, 0.95, 0.85)),
-            ('BACKGROUND', (1, 2), (1, 2), colors.Color(0.95, 0.85, 0.85)),
-            ('TEXTCOLOR', (1, 1), (1, 1), colors.HexColor('#28a745')),
-            ('TEXTCOLOR', (1, 2), (1, 2), colors.HexColor('#dc3545')),
-            ('GRID', (0, 0), (-1, -1), 1, colors.black),
-            ('ROWBACKGROUNDS', (0, 1), (0, -1), [colors.beige, colors.Color(0.95, 0.95, 0.9)])
+            ('FONTNAME', (0, 0), (-1, -1), 'Helvetica-Bold'),
+            ('FONTSIZE', (0, 0), (-1, -1), 14),
+            ('TEXTCOLOR', (0, 0), (0, 0), colors.HexColor('#28a745')),
+            ('TEXTCOLOR', (1, 0), (1, 0), colors.HexColor('#28a745')),
+            ('TEXTCOLOR', (0, 1), (0, 1), colors.HexColor('#dc3545')),
+            ('TEXTCOLOR', (1, 1), (1, 1), colors.HexColor('#dc3545')),
+            ('TOPPADDING', (0, 0), (-1, -1), 15),
+            ('BOTTOMPADDING', (0, 0), (-1, -1), 15),
         ]))
         
-        story.append(perc_table)
+        # Combine bar chart and labels in a table
+        chart_and_labels = Table([[bar_chart, perc_label_table]], colWidths=[3*inch, 3.5*inch])
+        chart_and_labels.setStyle(TableStyle([
+            ('ALIGN', (0, 0), (0, 0), 'CENTER'),
+            ('ALIGN', (1, 0), (1, 0), 'LEFT'),
+            ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+        ]))
+        
+        story.append(chart_and_labels)
         story.append(Spacer(1, 0.4*inch))
         
         # Images Section
