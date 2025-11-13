@@ -66,7 +66,13 @@ class CoffeeAnalyzer:
         defect_count = 0
         detections = []
         
+        # CRITICAL: Filter out detections below confidence threshold
         for box, cls, conf in zip(boxes, classes, confidences):
+            # SKIP if confidence is below threshold
+            if conf < confidence:
+                print(f"🚫 Filtering out detection with confidence {conf:.2f} < {confidence}")
+                continue
+            
             class_id = int(cls)
             class_name = class_names[class_id]
             

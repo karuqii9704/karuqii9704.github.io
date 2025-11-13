@@ -80,7 +80,7 @@ class ImageProcessor:
         return img
     
     @staticmethod
-    def draw_detections(image_path: str, results, output_path: str) -> str:
+    def draw_detections(image_path: str, results, output_path: str, min_confidence: float = 0.65) -> str:
         """
         Draw detection boxes on image with different colors for each class
         
@@ -88,6 +88,7 @@ class ImageProcessor:
             image_path: Path to original image
             results: YOLO prediction results
             output_path: Path to save annotated image
+            min_confidence: Minimum confidence threshold to display (default: 0.65)
             
         Returns:
             Path to saved annotated image
@@ -114,8 +115,13 @@ class ImageProcessor:
             confidences = results[0].boxes.conf.cpu().numpy()
             names = results[0].names
             
-            # Draw each detection
+            # Draw each detection ONLY if confidence >= min_confidence
             for box, cls, conf in zip(boxes, classes, confidences):
+                # CRITICAL FILTER: Skip detections below minimum confidence
+                if conf < min_confidence:
+                    print(f"🚫 Skipping low confidence detection: {conf:.2f} < {min_confidence}")
+                    continue
+                
                 x1, y1, x2, y2 = map(int, box)
                 class_name = names[int(cls)]
                 label = f"{class_name} {conf:.2f}"

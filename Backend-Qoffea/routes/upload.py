@@ -103,7 +103,7 @@ def upload_image():
         # Get results for drawing with all detection parameters
         from modules.model_loader import ModelLoader
         results = model_loader.predict(abs_filepath, conf=confidence, iou=iou_threshold, max_det=max_detections)
-        ImageProcessor.draw_detections(abs_filepath, results, annotated_path)
+        ImageProcessor.draw_detections(abs_filepath, results, annotated_path, min_confidence=confidence)
         
         # Prepare response
         response = {
