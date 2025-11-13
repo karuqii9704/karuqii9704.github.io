@@ -16,7 +16,11 @@ class Config:
     HF_MODEL_REPO = os.getenv('HF_MODEL_REPO', 'rakaval/Qoffea_2')
     HF_MODEL_FILE = os.getenv('HF_MODEL_FILE', 'best_2.pt')  # nama file model di repo
     MODEL_CACHE_DIR = os.getenv('MODEL_CACHE_DIR', os.path.join(BASE_DIR, 'model_cache'))
-    CONFIDENCE_THRESHOLD = float(os.getenv('CONFIDENCE_THRESHOLD', 0.5))
+    
+    # Detection Parameters
+    CONFIDENCE_THRESHOLD = float(os.getenv('CONFIDENCE_THRESHOLD', 0.6))  # Raised from 0.5 to reduce false positives
+    IOU_THRESHOLD = float(os.getenv('IOU_THRESHOLD', 0.45))  # IoU threshold for NMS (Non-Maximum Suppression)
+    MAX_DETECTIONS = int(os.getenv('MAX_DETECTIONS', 300))  # Maximum number of detections per image
     
     # Upload
     UPLOAD_FOLDER = os.getenv('UPLOAD_FOLDER', os.path.join(BASE_DIR, 'uploads'))

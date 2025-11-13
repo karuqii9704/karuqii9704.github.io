@@ -29,7 +29,9 @@ def create_app():
             model_repo=Config.HF_MODEL_REPO,
             model_file=Config.HF_MODEL_FILE,
             cache_dir=Config.MODEL_CACHE_DIR,
-            confidence=Config.CONFIDENCE_THRESHOLD
+            confidence=Config.CONFIDENCE_THRESHOLD,
+            iou=Config.IOU_THRESHOLD,
+            max_det=Config.MAX_DETECTIONS
         )
         print("✅ Model loaded successfully!")
     except Exception as e:

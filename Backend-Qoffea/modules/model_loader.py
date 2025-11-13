@@ -60,7 +60,8 @@ class ModelLoader:
             self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
             print(f"🔧 Using device: {self.device}")
     
-    def load_model(self, model_repo: str = None, model_file: str = None, cache_dir: str = None, confidence: float = 0.5):
+    def load_model(self, model_repo: str = None, model_file: str = None, cache_dir: str = None, 
+                   confidence: float = 0.6, iou: float = 0.45, max_det: int = 300):
         """
         Load YOLO model from Hugging Face repository
         
@@ -68,7 +69,9 @@ class ModelLoader:
             model_repo: Hugging Face repository ID (e.g., 'rakaval/Qoffea_2')
             model_file: Name of the model file in the repository (e.g., 'best.pt')
             cache_dir: Directory to cache the downloaded model
-            confidence: Confidence threshold for predictions
+            confidence: Confidence threshold for predictions (default: 0.6)
+            iou: IoU threshold for NMS to eliminate overlapping boxes (default: 0.45)
+            max_det: Maximum number of detections per image (default: 300)
             
         Returns:
             Loaded YOLO model
@@ -133,12 +136,19 @@ class ModelLoader:
                 print(f"📦 Loading model...")
                 
                 self._model = YOLO(model_path)
-                self._model.conf = confidence
+                # Set detection parameters
+                self._model.conf = confidence  # Confidence threshold
+                self._model.iou = iou  # IoU threshold for NMS
+                self._model.max_det = max_det  # Maximum detections per image
                 
                 # Get model info
                 if hasattr(self._model, 'names'):
                     print(f"✅ Model loaded successfully!")
                     print(f"📊 Classes detected: {self._model.names}")
+                    print(f"⚙️  Detection settings:")
+                    print(f"   - Confidence threshold: {confidence}")
+                    print(f"   - IoU threshold (NMS): {iou}")
+                    print(f"   - Max detections: {max_det}")
                 
             except Exception as e:
                 print(f"❌ Error loading model from Hugging Face: {e}")
@@ -161,25 +171,40 @@ class ModelLoader:
         model = self.get_model()
         return model.names if hasattr(model, 'names') else {}
     
-    def predict(self, image_path: str, conf: float = None):
+    def predict(self, image_path: str, conf: float = None, iou: float = None, max_det: int = None):
         """
         Run prediction on an image
         
         Args:
             image_path: Path to image file
             conf: Optional confidence threshold override
+            iou: Optional IoU threshold override for NMS
+            max_det: Optional max detections override
             
         Returns:
             Prediction results
         """
         model = self.get_model()
         
+        # Store original settings
+        original_conf = model.conf
+        original_iou = model.iou
+        original_max_det = model.max_det
+        
+        # Apply overrides if provided
         if conf is not None:
-            original_conf = model.conf
             model.conf = conf
-            results = model(image_path)
-            model.conf = original_conf
-        else:
-            results = model(image_path)
+        if iou is not None:
+            model.iou = iou
+        if max_det is not None:
+            model.max_det = max_det
+        
+        # Run prediction
+        results = model(image_path)
+        
+        # Restore original settings
+        model.conf = original_conf
+        model.iou = original_iou
+        model.max_det = original_max_det
         
         return results
