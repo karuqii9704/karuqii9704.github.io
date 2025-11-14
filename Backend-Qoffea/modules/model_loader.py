@@ -61,7 +61,7 @@ class ModelLoader:
             print(f"🔧 Using device: {self.device}")
     
     def load_model(self, model_repo: str = None, model_file: str = None, cache_dir: str = None, 
-                   confidence: float = 0.55, iou: float = 0.40, max_det: int = 300):
+                   confidence: float = 0.52, iou: float = 0.40, max_det: int = 300):
         """
         Load YOLO model from Hugging Face repository
         
