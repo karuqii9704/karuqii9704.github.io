@@ -66,9 +66,9 @@ def upload_image():
         iou_threshold = float(iou_threshold)
         max_detections = int(max_detections)
         
-        # Enforce minimum confidence threshold of 0.65
-        if confidence < 0.65:
-            confidence = 0.65
+        # Enforce minimum confidence threshold of 0.55
+        if confidence < 0.55:
+            confidence = 0.55
         
         # Save uploaded file
         filename, filepath = FileHandler.save_upload(file, Config.UPLOAD_FOLDER)

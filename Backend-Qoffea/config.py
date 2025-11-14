@@ -18,7 +18,7 @@ class Config:
     MODEL_CACHE_DIR = os.getenv('MODEL_CACHE_DIR', os.path.join(BASE_DIR, 'model_cache'))
     
     # Detection Parameters
-    CONFIDENCE_THRESHOLD = float(os.getenv('CONFIDENCE_THRESHOLD', 0.65))  # Stricter: only high-confidence detections
+    CONFIDENCE_THRESHOLD = float(os.getenv('CONFIDENCE_THRESHOLD', 0.55))  # Confidence threshold for predictions
     IOU_THRESHOLD = float(os.getenv('IOU_THRESHOLD', 0.40))  # Lower = more aggressive NMS, removes more overlaps
     MAX_DETECTIONS = int(os.getenv('MAX_DETECTIONS', 300))  # Maximum number of detections per image
     

@@ -80,7 +80,7 @@ class ImageProcessor:
         return img
     
     @staticmethod
-    def draw_detections(image_path: str, results, output_path: str, min_confidence: float = 0.65) -> str:
+    def draw_detections(image_path: str, results, output_path: str, min_confidence: float = 0.55) -> str:
         """
         Draw detection boxes on image with different colors for each class
         

@@ -18,7 +18,7 @@ class CoffeeAnalyzer:
         """
         self.model_loader = model_loader
     
-    def analyze_image(self, image_path: str, confidence: float = 0.65, iou: float = 0.40, max_det: int = 300) -> Dict:
+    def analyze_image(self, image_path: str, confidence: float = 0.55, iou: float = 0.40, max_det: int = 300) -> Dict:
         """
         Analyze coffee beans in image
         
