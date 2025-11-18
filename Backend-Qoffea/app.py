@@ -24,14 +24,15 @@ def create_app():
     # Load AI model on startup
     try:
         print("🚀 Initializing Qoffea Backend...")
-        print(f"📥 Loading model from Hugging Face: {Config.HF_MODEL_REPO}")
+        print(f"📥 Loading model from local path: {Config.MODEL_PATH}")
         model_loader.load_model(
-            model_repo=Config.HF_MODEL_REPO,
-            model_file=Config.HF_MODEL_FILE,
+            model_repo=None,
+            model_file=None,
             cache_dir=Config.MODEL_CACHE_DIR,
             confidence=Config.CONFIDENCE_THRESHOLD,
             iou=Config.IOU_THRESHOLD,
-            max_det=Config.MAX_DETECTIONS
+            max_det=Config.MAX_DETECTIONS,
+            local_path=Config.MODEL_PATH
         )
         print("✅ Model loaded successfully!")
     except Exception as e:

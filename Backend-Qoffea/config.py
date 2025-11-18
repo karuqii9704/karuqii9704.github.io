@@ -12,9 +12,8 @@ class Config:
     
     # Model
     BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-    # Hugging Face Model Configuration
-    HF_MODEL_REPO = os.getenv('HF_MODEL_REPO', 'rakaval/Qoffea_2')
-    HF_MODEL_FILE = os.getenv('HF_MODEL_FILE', 'best_2.pt')  # nama file model di repo
+    # Local Model Configuration
+    MODEL_PATH = os.getenv('MODEL_PATH', os.path.join(BASE_DIR, 'models', 'best.pt'))
     MODEL_CACHE_DIR = os.getenv('MODEL_CACHE_DIR', os.path.join(BASE_DIR, 'model_cache'))
     
     # Detection Parameters
