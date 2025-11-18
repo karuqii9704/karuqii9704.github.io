@@ -4,7 +4,7 @@
  */
 
 // API Configuration
-const API_BASE_URL = 'https://qoffea-backend-c26brvbilq-et.a.run.app/api';
+const API_BASE_URL = 'https://qoffea.cloud/api';
 
 // Global state
 let currentAnalysisId = null;

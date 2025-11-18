@@ -199,25 +199,18 @@ class ModelLoader:
         """
         model = self.get_model()
         
-        # Store original settings
-        original_conf = model.conf
-        original_iou = model.iou
-        original_max_det = model.max_det
+        # Set default values if not provided
+        if conf is None:
+            conf = 0.52
+        if iou is None:
+            iou = 0.40
+        if max_det is None:
+            max_det = 300
         
-        # Apply overrides if provided
-        if conf is not None:
-            model.conf = conf
-        if iou is not None:
-            model.iou = iou
-        if max_det is not None:
-            model.max_det = max_det
+        # Run prediction with parameters directly
+        results = model(image_path, conf=conf, iou=iou, max_det=max_det)
         
-        # Run prediction
-        results = model(image_path)
-        
-        # Restore original settings
-        model.conf = original_conf
-        model.iou = original_iou
+        # Return results (no need to restore settings)
         model.max_det = original_max_det
         
         return results
