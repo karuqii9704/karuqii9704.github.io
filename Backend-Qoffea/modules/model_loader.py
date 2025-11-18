@@ -61,9 +61,9 @@ class ModelLoader:
             print(f"🔧 Using device: {self.device}")
     
     def load_model(self, model_repo: str = None, model_file: str = None, cache_dir: str = None, 
-                   confidence: float = 0.52, iou: float = 0.40, max_det: int = 300):
+                   confidence: float = 0.52, iou: float = 0.40, max_det: int = 300, local_path: str = None):
         """
-        Load YOLO model from Hugging Face repository
+        Load YOLO model from Hugging Face repository or local path
         
         Args:
             model_repo: Hugging Face repository ID (e.g., 'rakaval/Qoffea_2')
@@ -72,12 +72,25 @@ class ModelLoader:
             confidence: Confidence threshold for predictions (default: 0.65)
             iou: IoU threshold for NMS to eliminate overlapping boxes (default: 0.40)
             max_det: Maximum number of detections per image (default: 300)
+            local_path: Path to local model file (if provided, skips Hugging Face download)
             
         Returns:
             Loaded YOLO model
         """
         if self._model is None:
             try:
+                # Check if should use local model
+                if not model_repo or (model_repo and model_repo.strip() == ""):
+                    print(f"🔧 Using local model (no HF repo specified)")
+                    if local_path and os.path.exists(local_path):
+                        print(f"📂 Loading model from: {local_path}")
+                        self._model = YOLO(local_path)
+                        self._model_loaded = True
+                        print(f"✅ Model loaded successfully from local path")
+                        return self._model
+                    else:
+                        raise RuntimeError(f"❌ Local model not found: {local_path}")
+                
                 print(f"🔍 Downloading model from Hugging Face...")
                 print(f"   Repository: {model_repo}")
                 print(f"   File: {model_file}")
