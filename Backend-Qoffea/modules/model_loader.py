@@ -210,7 +210,4 @@ class ModelLoader:
         # Run prediction with parameters directly
         results = model(image_path, conf=conf, iou=iou, max_det=max_det)
         
-        # Return results (no need to restore settings)
-        model.max_det = original_max_det
-        
         return results
